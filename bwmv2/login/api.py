@@ -13,8 +13,8 @@ from flask_restful import Api, fields, marshal_with
 
 from bwmv2 import jwt_redis_blocklist
 from bwmv2.account.models import User
-from bwmv2.core.restful import Resource, common_marshal
 from bwmv2.core.errors import ApiError
+from bwmv2.core.restful import Resource, common_marshal
 from bwmv2.login.errors import LoginError
 
 from .schemas import LoginSchema
@@ -45,13 +45,15 @@ class Login(Resource):
 
 class Logout(Resource):
     @common_marshal
-    @jwt_required()
+    @jwt_required(verify_type=False)
     def post(self):
-        jti = get_jwt()["jti"]
+        token = get_jwt()
+        jti: str = token["jti"]
+        token_type: str = token["type"]
         revoked_key = current_app.config["JWT_REVOKED_KEY"].format(jti)
         ex = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
         jwt_redis_blocklist.set(revoked_key, "", ex=ex)
-        return self.success()
+        return self.success(_(f"撤销{token_type.capitalize()}令牌成功"))
 
 
 class Refresh(Resource):
