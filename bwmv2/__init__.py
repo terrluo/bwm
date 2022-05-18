@@ -1,3 +1,5 @@
+import logging
+import logging.handlers
 import os
 import typing as t
 
@@ -35,6 +37,8 @@ jwt_redis_blocklist: t.Optional[redis.StrictRedis] = None
 
 
 def create_app():
+    _register_log()
+
     # 解决循环导入问题
     from . import models
 
@@ -51,6 +55,19 @@ def create_app():
     _register_blueprint(app)
     _register_error_handler(app)
     return app
+
+
+def _register_log():
+    level = os.getenv("BWM_LOG_LEVEL", "INFO").upper()
+    logging.basicConfig(level=level)
+    file_log_handler = logging.handlers.RotatingFileHandler(
+        f"logs/{__name__}.log", maxBytes=1024 * 1024 * 5, backupCount=200
+    )
+    formatter = logging.Formatter(
+        "%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s"
+    )
+    file_log_handler.setFormatter(formatter)
+    logging.getLogger().addHandler(file_log_handler)
 
 
 def _init_jwt(app: Flask, jwt: JWTManager):
