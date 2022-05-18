@@ -5,7 +5,7 @@ from flask_jwt_extended import jwt_required
 from flask_restful import Api, fields, marshal_with
 
 from bwmv2.account.models import User as UserModel
-from bwmv2.core.api import Resource
+from bwmv2.core.restful import Resource
 from bwmv2.core.errors import ApiError
 from bwmv2.user.errors import UserError
 

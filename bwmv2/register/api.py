@@ -5,7 +5,7 @@ from flask_restful import Api
 
 from bwmv2 import db
 from bwmv2.account.models import User
-from bwmv2.core.api import Resource, common_marshal
+from bwmv2.core.restful import Resource, common_marshal
 from bwmv2.core.errors import ApiError
 
 from .errors import RegisterError
