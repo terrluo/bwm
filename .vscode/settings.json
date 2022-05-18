@@ -18,5 +18,7 @@
         "paramstyle",
         "pyfile"
     ],
-    "editor.suggest.snippetsPreventQuickSuggestions": false
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "debug.toolBarLocation": "docked",
+    "terminal.integrated.copyOnSelection": true
 }
