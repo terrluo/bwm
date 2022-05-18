@@ -1,0 +1,49 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "bwm test",
+            "type": "python",
+            "request": "launch",
+            "module": "pytest",
+            "env": {
+                "INSTANCE_CONFIG": "test.config.py",
+                "BWM_CONFIG_FILE": "${workspaceFolder}/config/test.py"
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "dev:bwm",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {},
+            "args": [
+                "run",
+                "--no-debugger"
+            ],
+            "jinja": true,
+            "justMyCode": false
+        },
+        {
+            "name": "prod:bwm",
+            "type": "python",
+            "request": "launch",
+            "module": "flask",
+            "env": {
+                "FLASK_ENV": "production",
+                "INSTANCE_CONFIG": "prod.config.py",
+                "BWM_CONFIG_FILE": "${workspaceFolder}/config/production.py",
+            },
+            "args": [
+                "run",
+                "--no-debugger"
+            ],
+            "jinja": true,
+            "justMyCode": true
+        }
+    ]
+}
