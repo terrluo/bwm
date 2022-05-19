@@ -4,10 +4,10 @@ from flask import Blueprint, current_app
 from flask_jwt_extended import jwt_required
 from flask_restful import Api, fields, marshal_with
 
-from bwmv2.account.models import User as UserModel
-from bwmv2.core.restful import Resource
-from bwmv2.core.errors import ApiError
-from bwmv2.user.errors import UserError
+from bwm.account.models import User as UserModel
+from bwm.core.restful import Resource
+from bwm.core.errors import ApiError
+from bwm.user.errors import UserError
 
 _ = gettext
 

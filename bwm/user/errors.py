@@ -1,6 +1,6 @@
 from gettext import gettext
 
-from bwmv2.core.errors import Error
+from bwm.core.errors import Error
 
 _ = gettext
 

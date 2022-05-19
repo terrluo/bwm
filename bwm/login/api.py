@@ -11,11 +11,11 @@ from flask_jwt_extended import (
 )
 from flask_restful import Api, fields, marshal_with
 
-from bwmv2 import jwt_redis_blocklist
-from bwmv2.account.models import User
-from bwmv2.core.errors import ApiError
-from bwmv2.core.restful import Resource, common_marshal
-from bwmv2.login.errors import LoginError
+from bwm import jwt_redis_blocklist
+from bwm.account.models import User
+from bwm.core.errors import ApiError
+from bwm.core.restful import Resource, common_marshal
+from bwm.login.errors import LoginError
 
 from .schemas import LoginSchema
 

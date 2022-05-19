@@ -1,4 +1,4 @@
-from bwmv2 import __version__
+from bwm import __version__
 
 
 def test_version():
