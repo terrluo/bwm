@@ -1,6 +1,7 @@
 import logging
 import logging.handlers
 import os
+import re
 import typing as t
 from datetime import datetime
 
@@ -70,6 +71,25 @@ def _register_log():
         "%(asctime)s %(levelname)s %(filename)s:%(lineno)d %(message)s"
     )
     file_log_handler.setFormatter(formatter)
+
+    class NoEscape(logging.Filter):
+        def __init__(self):
+            self.regex = re.compile(r"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]")
+
+        def strip_esc(self, s):
+            try:  # string-like
+                return self.regex.sub("", s)
+            except Exception:  # non-string-like
+                return s
+
+        def filter(self, record: logging.LogRecord) -> bool:
+            record.msg = self.strip_esc(record.msg)
+            if type(record.args) is tuple:
+                record.args = tuple(map(self.strip_esc, record.args))
+            return True
+
+    file_log_handler.addFilter(NoEscape())
+
     logger = logging.getLogger()
     logger.addHandler(file_log_handler)
 
@@ -98,7 +118,7 @@ def _init_jwt(app: Flask, jwt: JWTManager):
         login_id = jwt_data["sub"]
         return (
             User.query.filter_by(login_id=login_id, is_delete=User.IsDelete.NO)
-            .options(load_only(User.login_id, User.username))
+            .options(load_only(User.login_id, User.username, User.password))
             .first()
         )
 
@@ -135,7 +155,6 @@ def _register_blueprint(app: Flask):
     app.register_blueprint(login_bp)
     app.register_blueprint(register_bp)
     app.register_blueprint(user_bp)
-    print(app.url_map)
 
 
 def _load_config(app: Flask):
