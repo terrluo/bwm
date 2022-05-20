@@ -1,6 +1,6 @@
 import os
 
-from bwm.core.register.base import Component
+from bwm.registercomponent.base import Component
 
 
 class ConfigComponent(Component):

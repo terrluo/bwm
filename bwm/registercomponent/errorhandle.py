@@ -1,7 +1,7 @@
 from marshmallow import ValidationError
 
 from bwm.core.errors import ApiError
-from bwm.core.register.base import Component
+from bwm.registercomponent.base import Component
 
 
 class ErrorHandlerComponent(Component):

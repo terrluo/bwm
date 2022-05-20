@@ -28,6 +28,7 @@
         "paramstyle",
         "pybabel",
         "pyfile",
+        "registercomponent",
         "SQLALCHEMY"
     ],
     "editor.suggest.snippetsPreventQuickSuggestions": false,

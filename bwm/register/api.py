@@ -3,8 +3,8 @@ from flask_babel import lazy_gettext as _
 
 from bwm.account.models import User
 from bwm.core.errors import ApiError
-from bwm.core.register import db
 from bwm.core.restful import Resource, common_marshal, create_route
+from bwm.registercomponent import db
 
 from .errors import RegisterError
 from .schemas import RegisterSchema

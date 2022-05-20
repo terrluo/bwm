@@ -4,7 +4,7 @@ import redis
 from flask_jwt_extended import JWTManager
 from sqlalchemy.orm import load_only
 
-from bwm.core.register.base import Component
+from bwm.registercomponent.base import Component
 
 jwt = JWTManager()
 

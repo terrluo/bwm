@@ -1,8 +1,7 @@
-from celery import Celery
 from dotenv import load_dotenv
 from flask import Flask
 
-from .core import register
+from . import registercomponent as register
 
 load_dotenv()
 
@@ -13,9 +12,6 @@ register.register_components(
     [
         register.LogComponent,
         register.ConfigComponent,
-        register.CORSComponent,
-        register.SessionComponent,
-        register.BcryptComponent,
         register.DBComponent,
         register.JWTComponent,
         register.BlueprintComponent,
@@ -23,8 +19,5 @@ register.register_components(
         register.BabelComponent,
     ],
 )
-
-celery = Celery(__name__)
-celery.config_from_object("celerytasks.celeryconfig")
 
 __version__ = "0.1.0"

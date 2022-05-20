@@ -1,20 +1,24 @@
 import typing as t
 
+from celery import Celery
 from flask import Flask
+from flask_bcrypt import Bcrypt
+from flask_cors import CORS
+from flask_session import Session
 
 from .babel import BabelComponent, babel
 from .base import Component
-from .bcrypt import BcryptComponent, bwm_bcrypt
 from .blueprint import BlueprintComponent
 from .config import ConfigComponent
-from .cors import CORSComponent
 from .db import DBComponent, db, migrate
 from .errorhandle import ErrorHandlerComponent
 from .jwt import JWTComponent, jwt, jwt_redis_blocklist
 from .log import LogComponent
-from .session import SessionComponent, session
 
-CreateApp = t.Callable[[], Flask]
+celery = Celery(__name__)
+celery.config_from_object("celerytasks.celeryconfig")
+session = Session()
+bwm_bcrypt = Bcrypt()
 
 
 def register_components(app: Flask, component_list: t.List[Component]):
@@ -23,6 +27,10 @@ def register_components(app: Flask, component_list: t.List[Component]):
     for component in component_list:
         component(app).register()
 
+    CORS(app)
+    session.init_app(app)
+    bwm_bcrypt.init_app(app)
+
     # 解决循环导入问题
     from bwm import cli, models
 
@@ -30,11 +38,10 @@ def register_components(app: Flask, component_list: t.List[Component]):
 __all__ = [
     "BabelComponent",
     "babel",
-    "BcryptComponent",
     "bwm_bcrypt",
     "BlueprintComponent",
     "ConfigComponent",
-    "CORSComponent",
+    "celery",
     "DBComponent",
     "db",
     "migrate",
@@ -43,7 +50,6 @@ __all__ = [
     "jwt",
     "jwt_redis_blocklist",
     "LogComponent",
-    "SessionComponent",
     "session",
     "register_components",
 ]

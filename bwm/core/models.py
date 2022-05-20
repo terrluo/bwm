@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 from sqlalchemy import text
 
-from bwm.core.register import db
+from bwm.registercomponent import db
 
 
 class BaseModel(db.Model):

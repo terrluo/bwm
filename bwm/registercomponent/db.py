@@ -2,7 +2,7 @@ from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
-from bwm.core.register.base import Component
+from bwm.registercomponent.base import Component
 
 convention = {
     "ix": "ix_%(column_0_label)s",
