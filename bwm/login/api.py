@@ -1,7 +1,7 @@
 import typing as t
 from gettext import gettext
 
-from flask import Blueprint, current_app, request
+from flask import current_app, request
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -9,20 +9,19 @@ from flask_jwt_extended import (
     get_jwt,
     jwt_required,
 )
-from flask_restful import Api, fields, marshal_with
+from flask_restful import fields, marshal_with
 
 from bwm import jwt_redis_blocklist
 from bwm.account.models import User
 from bwm.core.errors import ApiError
-from bwm.core.restful import Resource, common_marshal
+from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.login.errors import LoginError
 
 from .schemas import LoginSchema
 
 _ = gettext
 
-login_bp = Blueprint("login", __name__, url_prefix="/api")
-login_api = Api(login_bp)
+login_bp, login_api = create_route("login", __name__, url_prefix="/api")
 
 
 class Login(Resource):

@@ -1,18 +1,17 @@
 from gettext import gettext
 
-from flask import Blueprint, current_app
+from flask import current_app
 from flask_jwt_extended import jwt_required
-from flask_restful import Api, fields, marshal_with
+from flask_restful import fields, marshal_with
 
 from bwm.account.models import User as UserModel
-from bwm.core.restful import Resource
 from bwm.core.errors import ApiError
+from bwm.core.restful import Resource, create_route
 from bwm.user.errors import UserError
 
 _ = gettext
 
-user_bp = Blueprint("user", __name__, url_prefix="/api/user")
-user_api = Api(user_bp)
+user_bp, user_api = create_route("user", __name__, url_prefix="/api/user")
 
 
 class User(Resource):
