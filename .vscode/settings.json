@@ -12,7 +12,7 @@
     },
     "python.formatting.provider": "black",
     "cSpell.words": [
-        "bwmv2",
+        "bwm",
         "DBAPI",
         "envvar",
         "paramstyle",

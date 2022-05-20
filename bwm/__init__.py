@@ -48,10 +48,15 @@ def create_app():
     _load_config(app)
 
     CORS(app)
+
     session.init_app(app)
+
     db.init_app(app)
+
     migrate.init_app(app, db=db)
+
     bwm_bcrypt.init_app(app)
+
     _init_jwt(app, jwt)
 
     _register_blueprint(app)
