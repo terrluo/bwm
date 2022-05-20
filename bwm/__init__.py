@@ -6,6 +6,8 @@ import typing as t
 from datetime import datetime
 
 import redis
+from celery import Celery
+from dotenv import load_dotenv
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
@@ -14,6 +16,8 @@ from flask_migrate import Migrate
 from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+
+load_dotenv()
 
 convention = {
     "ix": "ix_%(column_0_label)s",
@@ -36,6 +40,9 @@ bwm_bcrypt = Bcrypt()
 jwt = JWTManager()
 
 jwt_redis_blocklist: t.Optional[redis.StrictRedis] = None
+
+celery = Celery(__name__)
+celery.config_from_object("celery_tasks.celery_config")
 
 
 def create_app():
