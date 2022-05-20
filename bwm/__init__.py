@@ -18,6 +18,8 @@ from flask_session import Session
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 
+from .cli import register_cli
+
 load_dotenv()
 
 convention = {
@@ -74,6 +76,9 @@ def create_app():
     _register_error_handler(app)
 
     _register_babel(app)
+
+    register_cli(app)
+
     return app
 
 

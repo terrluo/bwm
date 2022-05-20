@@ -20,6 +20,7 @@
         "msgstr",
         "nplurals",
         "paramstyle",
+        "pybabel",
         "pyfile"
     ],
     "editor.suggest.snippetsPreventQuickSuggestions": false,

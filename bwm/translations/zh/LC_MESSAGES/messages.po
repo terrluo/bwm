@@ -1,4 +1,4 @@
-# English translations for PROJECT.
+# Chinese translations for PROJECT.
 # Copyright (C) 2022 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-20 18:42+0800\n"
-"PO-Revision-Date: 2022-05-20 16:44+0800\n"
+"POT-Creation-Date: 2022-05-20 18:57+0800\n"
+"PO-Revision-Date: 2022-05-20 18:57+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: en\n"
-"Language-Team: en <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: zh\n"
+"Language-Team: zh <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,30 +20,30 @@ msgstr ""
 
 #: bwm/core/restful.py:13
 msgid "成功"
-msgstr "success"
+msgstr ""
 
 #: bwm/login/api.py:33 bwm/login/errors.py:9
 msgid "用户名或密码错误"
-msgstr "username or password error"
+msgstr ""
 
 #: bwm/login/api.py:53
 #, python-format
 msgid "撤销%(token_type)s令牌成功"
-msgstr "revoke %(token_type)s token successfully"
+msgstr ""
 
 #: bwm/register/api.py:25
 msgid "用户已注册"
-msgstr "user is registered"
+msgstr ""
 
 #: bwm/register/api.py:35
 msgid "注册成功"
-msgstr "registered successfully"
+msgstr ""
 
 #: bwm/register/errors.py:9
 msgid "已注册"
-msgstr "registered"
+msgstr ""
 
 #: bwm/user/api.py:28 bwm/user/errors.py:9
 msgid "用户不存在"
-msgstr "user doesn't exist"
+msgstr ""
 
