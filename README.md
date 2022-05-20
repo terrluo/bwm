@@ -2,5 +2,5 @@
 
 ## 启动 celery
 ```
-celery -A celeryworker.celery worker
+celery -A celeryworker.celery worker -l INFO
 ```
