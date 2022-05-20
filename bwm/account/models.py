@@ -3,8 +3,8 @@ import uuid
 
 import sqlalchemy as sa
 
-from bwm import bwm_bcrypt, db
 from bwm.core.models import BaseModel
+from bwm.core.register import bwm_bcrypt, db
 
 
 class User(BaseModel):

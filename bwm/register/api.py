@@ -1,9 +1,9 @@
 from flask import current_app, request
 from flask_babel import lazy_gettext as _
 
-from bwm import db
 from bwm.account.models import User
 from bwm.core.errors import ApiError
+from bwm.core.register import db
 from bwm.core.restful import Resource, common_marshal, create_route
 
 from .errors import RegisterError
