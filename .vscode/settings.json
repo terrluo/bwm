@@ -21,7 +21,8 @@
         "nplurals",
         "paramstyle",
         "pybabel",
-        "pyfile"
+        "pyfile",
+        "SQLALCHEMY"
     ],
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "debug.toolBarLocation": "docked",
