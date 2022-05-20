@@ -42,7 +42,7 @@ jwt = JWTManager()
 jwt_redis_blocklist: t.Optional[redis.StrictRedis] = None
 
 celery = Celery(__name__)
-celery.config_from_object("celery_tasks.celery_config")
+celery.config_from_object("celerytasks.celeryconfig")
 
 
 def create_app():
