@@ -1,6 +1,5 @@
-from gettext import gettext
-
 from flask import current_app, request
+from flask_babel import lazy_gettext as _
 
 from bwm import db
 from bwm.account.models import User
@@ -9,8 +8,6 @@ from bwm.core.restful import Resource, common_marshal, create_route
 
 from .errors import RegisterError
 from .schemas import RegisterSchema
-
-_ = gettext
 
 register_bp, register_api = create_route(
     "register", __name__, url_prefix="/api/register"

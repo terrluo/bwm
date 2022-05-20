@@ -7,5 +7,5 @@ logger = get_task_logger(__name__)
 
 @celery.task()
 def add_together(a, b):
-    logger.info("run add_together")
+    logger.info("运行 add_together ...")
     return a + b

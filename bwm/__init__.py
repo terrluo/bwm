@@ -8,7 +8,8 @@ from datetime import datetime
 import redis
 from celery import Celery
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request
+from flask_babel import Babel
 from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
@@ -41,6 +42,8 @@ jwt = JWTManager()
 
 jwt_redis_blocklist: t.Optional[redis.StrictRedis] = None
 
+babel = Babel()
+
 celery = Celery(__name__)
 celery.config_from_object("celerytasks.celeryconfig")
 
@@ -64,10 +67,13 @@ def create_app():
 
     bwm_bcrypt.init_app(app)
 
-    _init_jwt(app, jwt)
+    _register_jwt(app)
 
     _register_blueprint(app)
+
     _register_error_handler(app)
+
+    _register_babel(app)
     return app
 
 
@@ -106,7 +112,16 @@ def _register_log():
     logger.addHandler(file_log_handler)
 
 
-def _init_jwt(app: Flask, jwt: JWTManager):
+def _register_babel(app: Flask):
+    babel.init_app(app)
+
+    @babel.localeselector
+    def get_locale():
+        languages: list = app.config.get("LANGUAGES")
+        return request.accept_languages.best_match(languages)
+
+
+def _register_jwt(app: Flask):
     from sqlalchemy.orm import load_only
 
     from .account.models import User

@@ -1,8 +1,6 @@
-from gettext import gettext
+from flask_babel import lazy_gettext as _
 
 from bwm.core.errors import Error
-
-_ = gettext
 
 
 class RegisterError:

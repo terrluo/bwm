@@ -1,7 +1,7 @@
 import typing as t
-from gettext import gettext
 
 from flask import current_app, request
+from flask_babel import lazy_gettext as _
 from flask_jwt_extended import (
     create_access_token,
     create_refresh_token,
@@ -18,8 +18,6 @@ from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.login.errors import LoginError
 
 from .schemas import LoginSchema
-
-_ = gettext
 
 login_bp, login_api = create_route("login", __name__, url_prefix="/api")
 
@@ -52,7 +50,7 @@ class Logout(Resource):
         revoked_key = current_app.config["JWT_REVOKED_KEY"].format(jti)
         ex = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
         jwt_redis_blocklist.set(revoked_key, "", ex=ex)
-        return self.success(_(f"撤销{token_type.capitalize()}令牌成功"))
+        return self.success(_("撤销%(token_type)s令牌成功", token_type=token_type))
 
 
 class Refresh(Resource):

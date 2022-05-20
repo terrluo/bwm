@@ -1,14 +1,12 @@
 import os
 import typing as t
-from gettext import gettext
 
 from flask import Blueprint
 from flask.scaffold import _sentinel
+from flask_babel import lazy_gettext as _
 from flask_restful import Api
 from flask_restful import Resource as _Resource
 from flask_restful import fields, marshal_with
-
-_ = gettext
 
 
 class Resource(_Resource):
