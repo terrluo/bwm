@@ -4,6 +4,11 @@ from sqlalchemy import text
 from bwm.registercomponent import db
 
 
+class IsType:
+    NO = False
+    YES = True
+
+
 class BaseModel(db.Model):
     __abstract__ = True
 
@@ -20,12 +25,7 @@ class BaseModel(db.Model):
         server_default=text("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"),
         comment="更新时间",
     )
-    is_delete = sa.Column(
-        sa.SmallInteger, nullable=False, default=0, comment="是否删除 0否 1是"
-    )
+    is_delete = sa.Column(sa.Boolean, nullable=False, default=False, comment="是否删除")
 
-    class IsDelete:
+    class IsDelete(IsType):
         """是否删除"""
-
-        NO = 0
-        YES = 1
