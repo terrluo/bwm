@@ -12,7 +12,7 @@ from flask_jwt_extended import (
 from flask_restful import fields, marshal_with
 
 from bwm.account.models import User
-from bwm.core.errors import ApiError
+from bwm.core.error import ApiError
 from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.login.errors import LoginError
 from bwm.registercomponent import jwt_redis_blocklist

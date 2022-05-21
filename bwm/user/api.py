@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required
 from flask_restful import fields, marshal_with
 
 from bwm.account.models import User as UserModel
-from bwm.core.errors import ApiError
+from bwm.core.error import ApiError
 from bwm.core.restful import Resource, create_route
 
 from .errors import UserError

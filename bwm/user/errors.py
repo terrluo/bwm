@@ -1,6 +1,6 @@
 from flask_babel import lazy_gettext as _
 
-from bwm.core.errors import Error
+from bwm.core.error import Error
 
 
 class UserError:
