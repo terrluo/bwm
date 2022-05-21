@@ -39,3 +39,7 @@ class LogComponent(Component):
         file_log_handler.addFilter(NoEscape())
         logger = logging.getLogger()
         logger.addHandler(file_log_handler)
+
+        sqlalchemy_log = logging.getLogger("sqlalchemy")
+        sqlalchemy_log.propagate = False
+        sqlalchemy_log.addHandler(file_log_handler)
