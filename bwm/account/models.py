@@ -3,7 +3,7 @@ import uuid
 
 import sqlalchemy as sa
 
-from bwm.core.models import BaseModel
+from bwm.core.models import BaseModel, IsType
 from bwm.registercomponent import bwm_bcrypt, db
 
 
@@ -12,11 +12,17 @@ class User(BaseModel):
 
     __tablename__ = "account_user"
 
+    class IsAdmin(IsType):
+        """是否是管理员"""
+
     # 更新密码后需要重新生成 login_id
     login_id = sa.Column(sa.String(36), nullable=False, unique=True, comment="登录id")
     nickname = sa.Column(sa.String(16), nullable=False, unique=True, comment="昵称")
     username = sa.Column(sa.String(16), nullable=False, unique=True, comment="用户名")
     password = sa.Column(sa.String(60), nullable=False, comment="密码")
+    is_admin = sa.Column(
+        sa.Boolean, nullable=False, default=IsAdmin.NO, comment="是否是管理员, 管理员有所有权限"
+    )
 
     @classmethod
     def generate_login_id(cls):
