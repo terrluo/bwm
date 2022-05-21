@@ -2,4 +2,4 @@ from marshmallow import Schema, fields
 
 
 class UserSchema(Schema):
-    user_id = fields.Integer(required=True)
+    user_id = fields.Integer(required=True, allow_none=False)

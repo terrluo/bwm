@@ -2,5 +2,5 @@ from marshmallow import Schema, fields
 
 
 class LoginSchema(Schema):
-    username = fields.String(required=True)
-    password = fields.String(required=True)
+    username = fields.String(required=True, allow_none=False)
+    password = fields.String(required=True, allow_none=False)
