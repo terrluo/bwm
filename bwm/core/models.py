@@ -2,6 +2,7 @@ import sqlalchemy as sa
 from sqlalchemy import text
 
 from bwm.registercomponent import db
+from bwm.util.dt import to_local
 
 
 class IsType:
@@ -31,3 +32,11 @@ class BaseModel(db.Model):
     is_delete = sa.Column(
         sa.Boolean, nullable=False, default=IsDelete.NO, comment="是否删除"
     )
+
+    @property
+    def local_create_time(self):
+        return to_local(self.create_time)
+
+    @property
+    def local_update_time(self):
+        return to_local(self.update_time)

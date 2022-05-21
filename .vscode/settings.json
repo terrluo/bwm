@@ -29,8 +29,10 @@
         "paramstyle",
         "pybabel",
         "pyfile",
+        "pytz",
         "registercomponent",
-        "SQLALCHEMY"
+        "SQLALCHEMY",
+        "timezoneselector"
     ],
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "debug.toolBarLocation": "docked",

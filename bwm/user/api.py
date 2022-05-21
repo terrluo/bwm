@@ -19,8 +19,8 @@ class User(Resource):
             "id": fields.Integer(),
             "nickname": fields.String(),
             "username": fields.String(),
-            "create_time": fields.DateTime(dt_format="iso8601"),
-            "update_time": fields.DateTime(dt_format="iso8601"),
+            "create_time": fields.DateTime(dt_format="iso8601", attribute="local_create_time"),
+            "update_time": fields.DateTime(dt_format="iso8601", attribute="local_update_time"),
         }
     )
     @jwt_required()
