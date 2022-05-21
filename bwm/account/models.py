@@ -8,6 +8,8 @@ from bwm.registercomponent import bwm_bcrypt, db
 
 
 class User(BaseModel):
+    """用户"""
+
     __tablename__ = "account_user"
 
     # 更新密码后需要重新生成 login_id
