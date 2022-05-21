@@ -1,4 +1,5 @@
 from marshmallow import ValidationError
+from flask_babel import lazy_gettext as _
 
 from bwm.core.error import ApiError
 from bwm.registercomponent.base import Component
@@ -8,9 +9,7 @@ class ErrorHandlerComponent(Component):
     def register(self):
         @self._app.errorhandler(ValidationError)
         def handle_validation_error(e: ValidationError):
-            for error_msg in e.messages.values():
-                return {"message": error_msg[0]}, 400
-            return {"message": "未知错误"}, 400
+            return {"message": _("请求数据错误"), "data": e.messages}, 400
 
         @self._app.errorhandler(ApiError)
         def handle_api_error(e: ApiError):

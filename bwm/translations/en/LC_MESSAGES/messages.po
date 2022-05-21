@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-20 18:42+0800\n"
+"POT-Creation-Date: 2022-05-22 01:33+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: bwm/core/restful.py:13
+#: bwm/core/restful.py:21
 msgid "成功"
 msgstr "success"
 
@@ -30,6 +30,14 @@ msgstr "username or password error"
 #, python-format
 msgid "撤销%(token_type)s令牌成功"
 msgstr "revoke %(token_type)s token successfully"
+
+#: bwm/menu/errors.py:8
+msgid "菜单已存在"
+msgstr "menu already exists"
+
+#: bwm/menu/errors.py:9
+msgid "路由不存在"
+msgstr "route doesn't exist"
 
 #: bwm/register/api.py:25
 msgid "用户已注册"
@@ -43,7 +51,11 @@ msgstr "registered successfully"
 msgid "已注册"
 msgstr "registered"
 
-#: bwm/user/api.py:28 bwm/user/errors.py:9
+#: bwm/registercomponent/errorhandle.py:12
+msgid "请求数据错误"
+msgstr "request data error"
+
+#: bwm/user/api.py:32 bwm/user/errors.py:9
 msgid "用户不存在"
 msgstr "user doesn't exist"
 

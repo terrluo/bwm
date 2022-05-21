@@ -7,6 +7,7 @@ class Menu(BaseModel):
     """菜单"""
 
     __tablename__ = "menu_menu"
+    __table_args__ = (sa.UniqueConstraint("parent_id", "menu_type", "menu_name"),)
 
     class MenuType:
         """菜单类型"""
@@ -18,7 +19,6 @@ class Menu(BaseModel):
         """是否可见"""
 
     menu_name = sa.Column(sa.String(32), nullable=False, comment="菜单名称")
-    menu_level = sa.Column(sa.Integer, nullable=False, default=0, comment="菜单层级")
     menu_order = sa.Column(sa.Integer, nullable=False, default=0, comment="菜单排序(从小到大排)")
     menu_type = sa.Column(
         sa.SmallInteger,
