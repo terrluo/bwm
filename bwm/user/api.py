@@ -1,4 +1,4 @@
-from flask import current_app
+from flask import current_app, request
 from flask_babel import lazy_gettext as _
 from flask_jwt_extended import jwt_required
 from flask_restful import fields, marshal_with
@@ -6,7 +6,9 @@ from flask_restful import fields, marshal_with
 from bwm.account.models import User as UserModel
 from bwm.core.errors import ApiError
 from bwm.core.restful import Resource, create_route
-from bwm.user.errors import UserError
+
+from .errors import UserError
+from .schemas import UserSchema
 
 user_bp, user_api = create_route("user", __name__, url_prefix="/api/user")
 
@@ -22,7 +24,9 @@ class User(Resource):
         }
     )
     @jwt_required()
-    def get(self, user_id: int):
+    def get(self):
+        data = UserSchema().load(request.args)
+        user_id = data.get("user_id")
         user = UserModel.get_active_user(user_id)
         if not user:
             current_app.logger.error(_("用户不存在"))
@@ -30,4 +34,4 @@ class User(Resource):
         return user
 
 
-user_api.add_resource(User, "/<int:user_id>")
+user_api.add_resource(User, "")
