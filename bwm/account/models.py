@@ -3,7 +3,7 @@ import uuid
 
 import sqlalchemy as sa
 
-from bwm.core.models import BaseModel, IsType
+from bwm.core.model import BaseModel, IsType
 from bwm.registercomponent import bwm_bcrypt, db
 
 

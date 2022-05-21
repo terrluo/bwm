@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 
-from bwm.core.models import BaseModel
+from bwm.core.model import BaseModel
 
 
 class Role(BaseModel):
