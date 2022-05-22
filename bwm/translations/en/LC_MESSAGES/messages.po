@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-22 01:33+0800\n"
+"POT-Creation-Date: 2022-05-22 14:17+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,15 +18,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
+#: bwm/core/error.py:51
+msgid "请求数据错误"
+msgstr "request data error"
+
 #: bwm/core/restful.py:21
 msgid "成功"
 msgstr "success"
 
-#: bwm/login/api.py:33 bwm/login/errors.py:9
+#: bwm/login/api.py:32 bwm/login/errors.py:9
 msgid "用户名或密码错误"
 msgstr "username or password error"
 
-#: bwm/login/api.py:53
+#: bwm/login/api.py:50
 #, python-format
 msgid "撤销%(token_type)s令牌成功"
 msgstr "revoke %(token_type)s token successfully"
@@ -39,11 +43,11 @@ msgstr "menu already exists"
 msgid "路由不存在"
 msgstr "route doesn't exist"
 
-#: bwm/register/api.py:25
+#: bwm/register/api.py:24
 msgid "用户已注册"
 msgstr "user is registered"
 
-#: bwm/register/api.py:35
+#: bwm/register/api.py:34
 msgid "注册成功"
 msgstr "registered successfully"
 
@@ -51,11 +55,7 @@ msgstr "registered successfully"
 msgid "已注册"
 msgstr "registered"
 
-#: bwm/registercomponent/errorhandle.py:12
-msgid "请求数据错误"
-msgstr "request data error"
-
-#: bwm/user/api.py:32 bwm/user/errors.py:9
+#: bwm/user/api.py:35 bwm/user/errors.py:9
 msgid "用户不存在"
 msgstr "user doesn't exist"
 
