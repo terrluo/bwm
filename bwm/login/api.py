@@ -14,7 +14,7 @@ from flask_restful import fields, marshal_with
 from bwm.account.models import User
 from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.login.errors import LoginError
-from bwm.registercomponent import get_jwt_redis_blocklist
+from bwm.registercomponent import jwt
 
 from .schemas import LoginSchema
 
@@ -47,7 +47,7 @@ class Logout(Resource):
         token_type: str = token["type"]
         revoked_key = current_app.config["JWT_REVOKED_KEY"].format(jti)
         ex = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
-        get_jwt_redis_blocklist().set(revoked_key, "", ex=ex)
+        jwt.redis_blocklist.set(revoked_key, "", ex=ex)
         session.pop(login_id, None)
         return self.success(_("撤销%(token_type)s令牌成功", token_type=token_type))
 
