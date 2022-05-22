@@ -9,3 +9,7 @@ compose_up:
 
 compose_stop:
 	docker compose -f docker-compose.yaml stop
+
+install:
+	poetry shell
+	poetry install --no-root
