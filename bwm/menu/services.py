@@ -42,15 +42,9 @@ class MenuService:
         menu_name = data["menu_name"]
         route_key = data["route_key"]
 
-        endpoint, method = self.unpack_route_key(route_key)
-        try:
-            rules = current_app.url_map.iter_rules(endpoint)
-            for rule in rules:
-                if method not in rule.methods:
-                    raise KeyError
-        except KeyError:
-            raise MenuError.ROUTE_NOT_FOUND
+        self._check_route_key(route_key)
 
+        # 检查菜单是否存在
         is_exist = db.session.query(
             self.menu_model.query.filter_by(
                 parent_id=parent_id, menu_type=menu_type, menu_name=menu_name
@@ -59,6 +53,19 @@ class MenuService:
         if is_exist:
             raise MenuError.EXISTED
 
+
     def unpack_route_key(self, route_key: str):
         endpoint, method = route_key.split("#", 2)
         return endpoint, method
+
+    def _check_route_key(self, route_key):
+        # 检查路由是否存在
+        endpoint, method = self.unpack_route_key(route_key)
+        try:
+            rules = current_app.url_map.iter_rules(endpoint.lower())
+            for rule in rules:
+                if method.upper() not in rule.methods:
+                    raise KeyError
+                break
+        except KeyError:
+            raise MenuError.ROUTE_NOT_FOUND
