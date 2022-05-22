@@ -3,7 +3,7 @@ import os
 import re
 from datetime import datetime
 
-from bwm.registercomponent.base import Component
+from bwm.component.base import Component
 
 
 class NoEscape(logging.Filter):

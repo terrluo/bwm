@@ -6,7 +6,7 @@ from flask_babel import lazy_gettext as _
 from flask_jwt_extended import JWTManager as _JWTManager
 from sqlalchemy.orm import load_only
 
-from bwm.registercomponent.base import Component
+from bwm.component.base import Component
 
 
 class JWTComponent(Component):

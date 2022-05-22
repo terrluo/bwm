@@ -1,8 +1,8 @@
 from flask_babel import lazy_gettext as _
 from marshmallow import ValidationError
 
+from bwm.component.base import Component
 from bwm.core.error import CommonError, Error
-from bwm.registercomponent.base import Component
 
 
 class ErrorHandlerComponent(Component):

@@ -1,7 +1,7 @@
 from flask import g, request
 from flask_babel import Babel
 
-from bwm.registercomponent.base import Component
+from bwm.component.base import Component
 
 babel = Babel()
 

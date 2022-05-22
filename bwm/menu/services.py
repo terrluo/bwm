@@ -2,8 +2,8 @@ import typing as t
 
 from flask import current_app
 
+from bwm.component import db
 from bwm.core.schema import load_data
-from bwm.registercomponent import db
 
 from .errors import MenuError
 from .models import Menu
@@ -52,7 +52,6 @@ class MenuService:
         ).scalar()
         if is_exist:
             raise MenuError.EXISTED
-
 
     def unpack_route_key(self, route_key: str):
         endpoint, method = route_key.split("#", 2)

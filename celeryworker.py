@@ -1,4 +1,4 @@
 from bwm import app
-from bwm.registercomponent import celery
+from bwm.component import celery
 
 app.app_context().push()

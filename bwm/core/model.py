@@ -1,7 +1,7 @@
 import sqlalchemy as sa
 from sqlalchemy import text
 
-from bwm.registercomponent import db
+from bwm.component import db
 from bwm.util.dt import to_local
 
 

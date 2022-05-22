@@ -1,4 +1,4 @@
-from bwm.registercomponent.base import Component
+from bwm.component.base import Component
 
 
 class BlueprintComponent(Component):

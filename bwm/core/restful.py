@@ -11,7 +11,7 @@ from flask_restful import fields, marshal_with
 
 class Api(_Api):
     def handle_error(self, e):
-        # 如果 flask 有自定义的错误处理,则还是由 flask 处理 
+        # 如果 flask 有自定义的错误处理,则还是由 flask 处理
         if current_app._find_error_handler(e):
             raise e
         return super().handle_error(e)

@@ -36,5 +36,9 @@
     ],
     "editor.suggest.snippetsPreventQuickSuggestions": false,
     "debug.toolBarLocation": "docked",
-    "terminal.integrated.copyOnSelection": true
+    "terminal.integrated.copyOnSelection": true,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    }
 }

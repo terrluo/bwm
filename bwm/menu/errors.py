@@ -1,5 +1,6 @@
-from bwm.core.error import Error
 from flask_babel import lazy_gettext as _
+
+from bwm.core.error import Error
 
 
 class MenuError:

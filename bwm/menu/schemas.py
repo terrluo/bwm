@@ -12,5 +12,7 @@ class AddMenuSchema(Schema):
         required=True, validate=[OneOf([Menu.MenuType.MENU, Menu.MenuType.BUTTON])]
     )
     parent_id = fields.Integer(load_default=0)
-    route_key = fields.String(required=True, validate=[Regexp(r".*#(GET|POST|PUT|DELETE)")])
+    route_key = fields.String(
+        required=True, validate=[Regexp(r".*#(GET|POST|PUT|DELETE)")]
+    )
     is_visible = fields.Boolean(required=True, allow_none=False)

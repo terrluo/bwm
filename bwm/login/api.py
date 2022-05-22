@@ -12,9 +12,9 @@ from flask_jwt_extended import (
 from flask_restful import fields, marshal_with
 
 from bwm.account.models import User
+from bwm.component import jwt
 from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.login.errors import LoginError
-from bwm.registercomponent import jwt
 
 from .schemas import LoginSchema
 

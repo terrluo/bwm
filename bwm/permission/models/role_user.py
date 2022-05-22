@@ -1,6 +1,6 @@
 import sqlalchemy as sa
 
-from bwm.registercomponent import db
+from bwm.component import db
 
 
 class RoleUser(db.Model):

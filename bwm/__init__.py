@@ -1,11 +1,12 @@
 from dotenv import load_dotenv
 from flask import Flask
 
-from . import registercomponent as register
+from . import component as register
 
 load_dotenv()
 
 app = Flask(__name__, instance_relative_config=True)
+
 
 register.register_components(
     app,

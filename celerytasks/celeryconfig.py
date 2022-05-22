@@ -1,7 +1,5 @@
 import os
 
-import celerytasks
-
 enable_utc = False
 timezone = "Asia/Shanghai"
 
