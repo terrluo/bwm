@@ -2,7 +2,7 @@ from attr import validate
 from marshmallow import Schema, fields
 from marshmallow.validate import Length, OneOf, Regexp
 
-from .models import Menu
+from .model import Menu
 
 
 class AddMenuSchema(Schema):

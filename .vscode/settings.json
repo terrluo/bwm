@@ -15,7 +15,7 @@
         "associationmodels",
         "blocklist",
         "celeryconfig",
-        "celerytasks",
+        "celerytask",
         "celeryworker",
         "DBAPI",
         "dotenv",

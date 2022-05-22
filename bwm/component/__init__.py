@@ -18,7 +18,7 @@ from .log import LogComponent
 
 cache = Cache()
 celery = Celery(__name__)
-celery.config_from_object("celerytasks.celeryconfig")
+celery.config_from_object("celerytask.celeryconfig")
 bwm_bcrypt = Bcrypt()
 
 
@@ -34,7 +34,7 @@ def register_components(app: Flask, component_list: t.List[Component]):
     bwm_bcrypt.init_app(app)
 
     # 解决循环导入问题
-    from bwm import cli, models
+    from bwm import cli, model
 
 
 __all__ = [

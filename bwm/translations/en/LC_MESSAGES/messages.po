@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-22 15:46+0800\n"
+"POT-Creation-Date: 2022-05-22 19:15+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,36 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: bwm/core/error.py:51
+#: bwm/account/error.py:9 bwm/account/service/user.py:62
+msgid "用户名或密码错误"
+msgstr "username or password error"
+
+#: bwm/account/error.py:15
+msgid "已注册"
+msgstr "registered"
+
+#: bwm/account/error.py:21 bwm/account/service/user.py:36
+msgid "用户不存在"
+msgstr "user doesn't exist"
+
+#: bwm/account/api/login.py:24
+#, python-format
+msgid "撤销%(token_type)s令牌成功"
+msgstr "revoke %(token_type)s token successfully"
+
+#: bwm/account/api/register.py:16
+msgid "注册成功"
+msgstr "registered successfully"
+
+#: bwm/account/service/user.py:45
+msgid "用户已注册"
+msgstr "user is registered"
+
+#: bwm/component/jwt.py:61
+msgid "redis_blocklist 未初始化"
+msgstr "redis_blocklist is not initialized"
+
+#: bwm/core/error.py:52
 msgid "请求数据错误"
 msgstr "request data error"
 
@@ -26,40 +55,11 @@ msgstr "request data error"
 msgid "成功"
 msgstr "success"
 
-#: bwm/login/api.py:32 bwm/login/errors.py:9
-msgid "用户名或密码错误"
-msgstr "username or password error"
-
-#: bwm/login/api.py:52
-#, python-format
-msgid "撤销%(token_type)s令牌成功"
-msgstr "revoke %(token_type)s token successfully"
-
-#: bwm/menu/errors.py:8
+#: bwm/menu/error.py:9
 msgid "菜单已存在"
 msgstr "menu already exists"
 
-#: bwm/menu/errors.py:9
+#: bwm/menu/error.py:10
 msgid "路由不存在"
 msgstr "route doesn't exist"
-
-#: bwm/register/api.py:24
-msgid "用户已注册"
-msgstr "user is registered"
-
-#: bwm/register/api.py:34
-msgid "注册成功"
-msgstr "registered successfully"
-
-#: bwm/register/errors.py:9
-msgid "已注册"
-msgstr "registered"
-
-#: bwm/registercomponent/jwt.py:61
-msgid "redis_blocklist 未初始化"
-msgstr "redis_blocklist is not initialized"
-
-#: bwm/user/api.py:35 bwm/user/errors.py:9
-msgid "用户不存在"
-msgstr "user doesn't exist"
 

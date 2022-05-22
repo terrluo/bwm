@@ -1,1 +1,0 @@
-import celerytasks.add

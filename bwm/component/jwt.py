@@ -11,7 +11,7 @@ from bwm.component.base import Component
 
 class JWTComponent(Component):
     def register(self):
-        from bwm.account.models import User
+        from bwm.account.model import User
 
         jwt.init_app(self._app)
 
