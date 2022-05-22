@@ -1,13 +1,12 @@
 import typing as t
 
 import redis
-from flask import current_app, g, session
-from flask_jwt_extended import JWTManager
+from flask import Flask, session
+from flask_babel import lazy_gettext as _
+from flask_jwt_extended import JWTManager as _JWTManager
 from sqlalchemy.orm import load_only
 
 from bwm.registercomponent.base import Component
-
-jwt = JWTManager()
 
 
 class JWTComponent(Component):
@@ -37,18 +36,30 @@ class JWTComponent(Component):
         def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
             jti = jwt_payload["jti"]
             revoked_key = self._app.config["JWT_REVOKED_KEY"].format(jti)
-            token_in_redis = get_jwt_redis_blocklist().get(revoked_key)
+            token_in_redis = jwt.redis_blocklist.get(revoked_key)
             return token_in_redis is not None
 
 
-def get_jwt_redis_blocklist():
-    blocklist = getattr(g, "jwt_redis_blocklist", None)
-    if not blocklist:
-        redis_host = current_app.config["JWT_BLACKLIST_REDIS_HOST"]
-        redis_port = current_app.config["JWT_BLACKLIST_REDIS_PORT"]
-        redis_db = current_app.config["JWT_BLACKLIST_REDIS_DB"]
-        blocklist = redis.StrictRedis(
+class JWTManager(_JWTManager):
+    def __init__(self, app: Flask = None) -> None:
+        super().__init__(app)
+        self._redis_blocklist: t.Optional[redis.StrictRedis] = None
+
+    def init_app(self, app: Flask) -> None:
+        super().init_app(app)
+
+        redis_host = app.config["JWT_BLACKLIST_REDIS_HOST"]
+        redis_port = app.config["JWT_BLACKLIST_REDIS_PORT"]
+        redis_db = app.config["JWT_BLACKLIST_REDIS_DB"]
+        self._redis_blocklist = redis.StrictRedis(
             host=redis_host, port=redis_port, db=redis_db, decode_responses=True
         )
-        g.jwt_redis_blocklist = blocklist
-    return blocklist
+
+    @property
+    def redis_blocklist(self):
+        if not self._redis_blocklist:
+            raise RuntimeError(_("redis_blocklist 未初始化"))
+        return self._redis_blocklist
+
+
+jwt = JWTManager()

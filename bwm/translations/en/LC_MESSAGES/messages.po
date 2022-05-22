@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-22 14:17+0800\n"
+"POT-Creation-Date: 2022-05-22 15:46+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -30,7 +30,7 @@ msgstr "success"
 msgid "用户名或密码错误"
 msgstr "username or password error"
 
-#: bwm/login/api.py:50
+#: bwm/login/api.py:52
 #, python-format
 msgid "撤销%(token_type)s令牌成功"
 msgstr "revoke %(token_type)s token successfully"
@@ -54,6 +54,10 @@ msgstr "registered successfully"
 #: bwm/register/errors.py:9
 msgid "已注册"
 msgstr "registered"
+
+#: bwm/registercomponent/jwt.py:61
+msgid "redis_blocklist 未初始化"
+msgstr "redis_blocklist is not initialized"
 
 #: bwm/user/api.py:35 bwm/user/errors.py:9
 msgid "用户不存在"

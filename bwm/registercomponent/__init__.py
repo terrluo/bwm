@@ -12,7 +12,7 @@ from .blueprint import BlueprintComponent
 from .config import ConfigComponent
 from .db import DBComponent, db, migrate
 from .errorhandle import ErrorHandlerComponent
-from .jwt import JWTComponent, get_jwt_redis_blocklist, jwt
+from .jwt import JWTComponent, jwt
 from .log import LogComponent
 
 celery = Celery(__name__)
@@ -47,7 +47,6 @@ __all__ = [
     "migrate",
     "ErrorHandlerComponent",
     "JWTComponent",
-    "get_jwt_redis_blocklist",
     "jwt",
     "LogComponent",
     "server_session",
