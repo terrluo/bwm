@@ -6,4 +6,4 @@ from bwm.core.error import Error
 class RegisterError:
     """注册错误码"""
 
-    REGISTERED = Error(code=10000, message=_("已注册"))
+    REGISTERED = Error(code=20000, message=_("已注册"))

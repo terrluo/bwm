@@ -12,7 +12,6 @@ from flask_jwt_extended import (
 from flask_restful import fields, marshal_with
 
 from bwm.account.models import User
-from bwm.core.error import ApiError
 from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.login.errors import LoginError
 from bwm.registercomponent import jwt_redis_blocklist
@@ -31,9 +30,7 @@ class Login(Resource):
         user: t.Optional[User] = User.query.filter_by(username=username).first()
         if not user or not user.check_password(password):
             current_app.logger.error(_("用户名或密码错误"))
-            raise ApiError.from_error(
-                LoginError.USERNAME_PASSWORD_ERROR, http_status=401
-            )
+            raise LoginError.USERNAME_PASSWORD_ERROR
 
         access_token = create_access_token(user)
         refresh_token = create_refresh_token(user)

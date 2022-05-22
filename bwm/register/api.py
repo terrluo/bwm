@@ -2,7 +2,6 @@ from flask import current_app, request
 from flask_babel import lazy_gettext as _
 
 from bwm.account.models import User
-from bwm.core.error import ApiError
 from bwm.core.restful import Resource, common_marshal, create_route
 from bwm.registercomponent import db
 
@@ -23,7 +22,7 @@ class Register(Resource):
         password = data["password"]
         if User.is_exist(data["username"]):
             current_app.logger.error(_("用户已注册"))
-            raise ApiError.from_error(RegisterError.REGISTERED)
+            raise RegisterError.REGISTERED
 
         login_id = User.generate_login_id()
         pw_hash = User.generate_password(password)

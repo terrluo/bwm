@@ -2,7 +2,6 @@ import typing as t
 
 from flask import current_app
 
-from bwm.core.error import ApiError
 from bwm.core.schema import load_data
 from bwm.registercomponent import db
 
@@ -43,11 +42,14 @@ class MenuService:
         menu_name = data["menu_name"]
         route_key = data["route_key"]
 
-        endpoint, _ = self.unpack_route_key(route_key)
+        endpoint, method = self.unpack_route_key(route_key)
         try:
-            current_app.url_map.iter_rules(endpoint)
+            rules = current_app.url_map.iter_rules(endpoint)
+            for rule in rules:
+                if method not in rule.methods:
+                    raise KeyError
         except KeyError:
-            raise ApiError.from_error(MenuError.ROUTE_NOT_FOUND)
+            raise MenuError.ROUTE_NOT_FOUND
 
         is_exist = db.session.query(
             self.menu_model.query.filter_by(
@@ -55,7 +57,7 @@ class MenuService:
             ).exists()
         ).scalar()
         if is_exist:
-            raise ApiError.from_error(MenuError.EXISTED)
+            raise MenuError.EXISTED
 
     def unpack_route_key(self, route_key: str):
         endpoint, method = route_key.split("#", 2)

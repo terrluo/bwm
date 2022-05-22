@@ -4,7 +4,6 @@ from flask_jwt_extended import jwt_required
 from flask_restful import fields, marshal_with
 
 from bwm.account.models import User as UserModel
-from bwm.core.error import ApiError
 from bwm.core.restful import Resource, create_route
 
 from .errors import UserError
@@ -19,8 +18,12 @@ class User(Resource):
             "id": fields.Integer(),
             "nickname": fields.String(),
             "username": fields.String(),
-            "create_time": fields.DateTime(dt_format="iso8601", attribute="local_create_time"),
-            "update_time": fields.DateTime(dt_format="iso8601", attribute="local_update_time"),
+            "create_time": fields.DateTime(
+                dt_format="iso8601", attribute="local_create_time"
+            ),
+            "update_time": fields.DateTime(
+                dt_format="iso8601", attribute="local_update_time"
+            ),
         }
     )
     @jwt_required()
@@ -30,7 +33,7 @@ class User(Resource):
         user = UserModel.get_active_user(user_id)
         if not user:
             current_app.logger.error(_("用户不存在"))
-            raise ApiError.from_error(UserError.NOT_FOUND)
+            raise UserError.NOT_FOUND
         return user
 
 
