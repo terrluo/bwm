@@ -2,6 +2,9 @@ from datetime import timedelta
 
 import pytz
 
+# flask
+PERMANENT_SESSION_LIFETIME = timedelta(days=30)
+
 # flask-sqlalchemy
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 
