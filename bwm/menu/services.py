@@ -58,7 +58,7 @@ class MenuService:
         endpoint, method = route_key.split("#", 2)
         return endpoint, method
 
-    def _check_route_key(self, route_key):
+    def _check_route_key(self, route_key: str):
         # 检查路由是否存在
         endpoint, method = self.unpack_route_key(route_key)
         try:
