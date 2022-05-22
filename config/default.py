@@ -19,5 +19,8 @@ LANGUAGES = ["zh", "en"]
 BABEL_DEFAULT_LOCALE = "zh"
 BABEL_DEFAULT_TIMEZONE = "Asia/Shanghai"
 
+# flask-caching
+CACHE_TYPE = "RedisCache"
+
 # 自定义
 LOCAL_TIMEZONE = pytz.timezone(BABEL_DEFAULT_TIMEZONE)

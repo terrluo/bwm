@@ -3,6 +3,7 @@ import typing as t
 from celery import Celery
 from flask import Flask
 from flask_bcrypt import Bcrypt
+from flask_caching import Cache
 from flask_cors import CORS
 from flask_session import Session
 
@@ -15,6 +16,7 @@ from .errorhandle import ErrorHandlerComponent
 from .jwt import JWTComponent, jwt
 from .log import LogComponent
 
+cache = Cache()
 celery = Celery(__name__)
 celery.config_from_object("celerytasks.celeryconfig")
 bwm_bcrypt = Bcrypt()
@@ -28,6 +30,7 @@ def register_components(app: Flask, component_list: t.List[Component]):
 
     CORS(app)
     Session(app)
+    cache.init_app(app)
     bwm_bcrypt.init_app(app)
 
     # 解决循环导入问题
@@ -39,6 +42,7 @@ __all__ = [
     "babel",
     "bwm_bcrypt",
     "BlueprintComponent",
+    "cache",
     "ConfigComponent",
     "celery",
     "DBComponent",

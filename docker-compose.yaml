@@ -39,8 +39,16 @@ services:
     volumes:
       - redis-celery-data:/data
 
+  redis-cache:
+    image: redis
+    ports:
+      - 6382:6379
+    volumes:
+      - redis-cache-data:/data
+
 volumes:
   mysql-demo-data:
   redis-session-data:
   redis-jwt-data:
   redis-celery-data:
+  redis-cache-data:
