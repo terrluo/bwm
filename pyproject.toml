@@ -25,6 +25,7 @@ Flask-Babel = "^2.0.0"
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 black = "^22.3.0"
+ipython = "^8.3.0"
 
 [tool.isort]
 profile = "black"

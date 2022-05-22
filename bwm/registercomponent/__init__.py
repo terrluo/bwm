@@ -12,12 +12,12 @@ from .blueprint import BlueprintComponent
 from .config import ConfigComponent
 from .db import DBComponent, db, migrate
 from .errorhandle import ErrorHandlerComponent
-from .jwt import JWTComponent, jwt, jwt_redis_blocklist
+from .jwt import JWTComponent, get_jwt_redis_blocklist, jwt
 from .log import LogComponent
 
 celery = Celery(__name__)
 celery.config_from_object("celerytasks.celeryconfig")
-session = Session()
+server_session = Session()
 bwm_bcrypt = Bcrypt()
 
 
@@ -28,7 +28,7 @@ def register_components(app: Flask, component_list: t.List[Component]):
         component(app).register()
 
     CORS(app)
-    session.init_app(app)
+    server_session.init_app(app)
     bwm_bcrypt.init_app(app)
 
     # 解决循环导入问题
@@ -47,9 +47,9 @@ __all__ = [
     "migrate",
     "ErrorHandlerComponent",
     "JWTComponent",
+    "get_jwt_redis_blocklist",
     "jwt",
-    "jwt_redis_blocklist",
     "LogComponent",
-    "session",
+    "server_session",
     "register_components",
 ]
