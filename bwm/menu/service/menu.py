@@ -4,10 +4,9 @@ from flask import current_app
 
 from bwm.core.schema import load_data
 from bwm.core.service import CacheService
-
-from .errors import MenuError
-from .models import Menu
-from .schemas import AddMenuSchema
+from bwm.menu.errors import MenuError
+from bwm.menu.models import Menu
+from bwm.menu.schemas import AddMenuSchema
 
 
 class MenuService(CacheService):
