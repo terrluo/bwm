@@ -1,9 +1,12 @@
-from bwm.component import cache, db
+from bwm.util.component import get_cache, get_db
+
+_cache = get_cache()
+_db = get_db()
 
 
 class Service:
-    db = db
+    db = _db
 
 
 class CacheService(Service):
-    cache = cache
+    cache = _cache

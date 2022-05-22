@@ -2,8 +2,8 @@ import uuid
 
 import sqlalchemy as sa
 
-from bwm.component import bwm_bcrypt
 from bwm.core.model import BaseModel, IsType
+from bwm.util.component import get_bcrypt
 
 
 class User(BaseModel):
@@ -37,4 +37,4 @@ class User(BaseModel):
         return self._get_bcrypt(bcrypt).check_password_hash(self.password, password)
 
     def _get_bcrypt(self, bcrypt=None):
-        return bcrypt if bcrypt else bwm_bcrypt
+        return bcrypt if bcrypt else get_bcrypt()

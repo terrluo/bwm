@@ -12,9 +12,9 @@ from flask_jwt_extended import (
 from bwm.account.error import LoginError, RegisterError, UserError
 from bwm.account.model import User
 from bwm.account.schema import LoginSchema, RegisterSchema, UserSchema
-from bwm.component import jwt
 from bwm.core.schema import load_data
 from bwm.core.service import Service
+from bwm.util.component import get_jwt as util_get_jwt
 
 
 class UserService(Service):
@@ -72,7 +72,7 @@ class UserService(Service):
         jti: str = token["jti"]
         revoked_key = current_app.config["JWT_REVOKED_KEY"].format(jti)
         ex = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
-        jwt.redis_blocklist.set(revoked_key, "", ex=ex)
+        util_get_jwt().redis_blocklist.set(revoked_key, "", ex=ex)
         session.pop(login_id, None)
         return token
 

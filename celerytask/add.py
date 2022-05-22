@@ -1,6 +1,6 @@
 from celery.utils.log import get_task_logger
 
-from bwm import celery
+from bwm.component import celery
 
 logger = get_task_logger(__name__)
 

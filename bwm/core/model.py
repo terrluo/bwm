@@ -1,8 +1,10 @@
 import sqlalchemy as sa
 from sqlalchemy import text
 
-from bwm.component import db
+from bwm.util.component import get_db
 from bwm.util.dt import to_local
+
+_db = get_db()
 
 
 class IsType:
@@ -10,7 +12,7 @@ class IsType:
     YES = True
 
 
-class BaseModel(db.Model):
+class BaseModel(_db.Model):
     __abstract__ = True
 
     class IsDelete(IsType):
