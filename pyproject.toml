@@ -27,6 +27,7 @@ Flask-Caching = "^1.10.1"
 pytest = "^5.2"
 black = "^22.3.0"
 ipython = "^8.3.0"
+flask-shell-ipython = "^0.4.1"
 
 [tool.isort]
 profile = "black"
