@@ -51,4 +51,8 @@ def create_route(
     return bp, api
 
 
+def marshal_list(data: dict):
+    return dict(data=fields.List(fields.Nested(data)), count=fields.Integer())
+
+
 common_marshal = marshal_with({"message": fields.String()})

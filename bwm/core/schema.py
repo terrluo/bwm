@@ -1,7 +1,8 @@
 import typing as t
 from functools import partial, wraps
 
-from marshmallow import Schema
+from marshmallow import Schema, fields
+from marshmallow.validate import Range
 
 
 def load_data(schema: Schema, is_method=True):
@@ -17,3 +18,8 @@ def load_data(schema: Schema, is_method=True):
         return wrapper
 
     return inner
+
+
+class PageSchema(Schema):
+    page = fields.Integer(load_default=1, validate=[Range(min=1)])
+    limit = fields.Integer(load_default=10, validate=[Range(min=1)])

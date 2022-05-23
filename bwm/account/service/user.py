@@ -11,8 +11,8 @@ from flask_jwt_extended import (
 
 from bwm.account.error import LoginError, RegisterError, UserError
 from bwm.account.model import User
-from bwm.account.schema import LoginSchema, RegisterSchema, UserSchema
-from bwm.core.schema import load_data
+from bwm.account.schema import LoginSchema, RegisterSchema
+from bwm.core.schema import PageSchema, load_data
 from bwm.core.service import Service
 from bwm.util.component import get_jwt as util_get_jwt
 
@@ -20,14 +20,24 @@ from bwm.util.component import get_jwt as util_get_jwt
 class UserService(Service):
     user_model = User
 
+    @load_data(PageSchema())
+    def get_all_user(self, data):
+        page = data["page"]
+        limit = data["limit"]
+
+        all_user = self.user_model.query.filter(
+            self.user_model.is_delete == self.user_model.IsDelete.NO
+        )
+        count = all_user.count()
+        all_user = self.page(all_user, page, limit).all()
+        return dict(data=all_user, count=count)
+
     def is_exist(self, username: str):
         return self.db.session.query(
             self.user_model.query.filter_by(username=username).exists()
         ).scalar()
 
-    @load_data(UserSchema())
-    def get_active_user(self, data) -> t.Optional[User]:
-        user_id: int = data["user_id"]
+    def get_active_user(self, user_id: int) -> t.Optional[User]:
         user: t.Optional[User] = self.user_model.query.filter(
             self.user_model.id == user_id,
             self.user_model.is_delete == self.user_model.IsDelete.NO,
