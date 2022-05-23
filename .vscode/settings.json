@@ -13,6 +13,7 @@
     "python.formatting.provider": "black",
     "cSpell.words": [
         "associationmodels",
+        "autofix",
         "blocklist",
         "celeryconfig",
         "celerytask",
@@ -21,10 +22,13 @@
         "dotenv",
         "envvar",
         "errorhandle",
+        "isort",
         "levelname",
         "localeselector",
         "msgid",
         "msgstr",
+        "myapp",
+        "mymodel",
         "nplurals",
         "paramstyle",
         "pybabel",
@@ -40,5 +44,7 @@
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": true
-    }
+    },
+    "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+    "python.linting.flake8Enabled": true
 }

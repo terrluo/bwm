@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-05-22 19:15+0800\n"
+"POT-Creation-Date: 2022-05-23 14:28+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -62,4 +62,3 @@ msgstr "menu already exists"
 #: bwm/menu/error.py:10
 msgid "路由不存在"
 msgstr "route doesn't exist"
-
