@@ -7,8 +7,7 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "**/__pycache__": true,
-        "**/.pytest_cache": true,
-        "**/.venv": true
+        "**/.pytest_cache": true
     },
     "python.formatting.provider": "black",
     "cSpell.words": [
@@ -46,5 +45,6 @@
         "source.organizeImports": true
     },
     "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
-    "python.linting.flake8Enabled": true
+    "python.linting.flake8Enabled": true,
+    "python.linting.enabled": true
 }
