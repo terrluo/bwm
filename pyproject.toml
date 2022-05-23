@@ -28,6 +28,9 @@ pytest = "^7.1"
 black = "^22.3.0"
 ipython = "^8.3.0"
 flask-shell-ipython = "^0.4.1"
+pre-commit = "^2.19.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
 
 [tool.isort]
 profile = "black"
