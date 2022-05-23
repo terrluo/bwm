@@ -1,4 +1,4 @@
-from flask import current_app, request
+from flask import request
 from flask_babel import lazy_gettext as _
 
 from bwm.account.service.user import UserService

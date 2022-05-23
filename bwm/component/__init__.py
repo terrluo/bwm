@@ -34,7 +34,7 @@ def register_components(app: Flask, component_list: t.List[Component]):
     bcrypt.init_app(app)
 
     # 解决循环导入问题
-    from bwm import cli, model
+    from bwm import cli, model  # noqa
 
 
 __all__ = [

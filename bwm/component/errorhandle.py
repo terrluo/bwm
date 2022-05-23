@@ -1,4 +1,3 @@
-from flask_babel import lazy_gettext as _
 from marshmallow import ValidationError
 
 from bwm.component.base import Component
