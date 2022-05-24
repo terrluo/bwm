@@ -5,6 +5,7 @@ import re
 from datetime import datetime
 
 from bwm.component.base import Component
+from bwm.constants import Env
 
 
 class NoEscape(logging.Filter):
@@ -44,3 +45,12 @@ class LogComponent(Component):
         sqlalchemy_log = logging.getLogger("sqlalchemy")
         sqlalchemy_log.propagate = False
         sqlalchemy_log.addHandler(file_log_handler)
+
+        if self._app.config.get("ENV") == Env.DEV:
+            from nplusone.ext.flask_sqlalchemy import NPlusOne
+
+            NPlusOne(self._app)
+            self._app.config["NPLUSONE_LOGGER"] = logging.getLogger(
+                f"{self._app.name}.nplusone"
+            )
+            self._app.config["NPLUSONE_LOG_LEVEL"] = logging.ERROR
