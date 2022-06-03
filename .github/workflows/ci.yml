@@ -43,8 +43,10 @@ jobs:
         poetry install --no-root
 
     # 缓存 image
-    - run: mkdir -p ~/.image-cache
+    - name: Create image cache dir
+      run: mkdir -p ~/.image-cache
     - id: image-cache
+      name: Cache image
       uses: actions/cache@v2
       with:
         path: ~/.image-cache
