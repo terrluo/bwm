@@ -14,6 +14,9 @@ install:
 	poetry shell
 	poetry install --no-root
 
+db-upgrade:
+	poetry run flask db upgrade
+
 test:
 	poetry run pytest
 
