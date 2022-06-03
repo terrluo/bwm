@@ -33,6 +33,6 @@ repos:
     hooks:
     - id: autoflake8
       args: [
-        "remove-duplicate-keys",
-        "remove-unused-variables"
+        "--remove-duplicate-keys",
+        "--remove-unused-variables"
       ]
