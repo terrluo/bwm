@@ -41,6 +41,21 @@ jobs:
         python -m pip install --upgrade pip
         pip install poetry
         poetry install --no-root
+
+    # 缓存 image
+    - run: mkdir -p ~/.image-cache
+    - id: image-cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.image-cache
+        key: image-cache-${{ runner.os }}-${{ hashFiles('**/docker-compose.yaml') }}
+    - if: steps.image-cache.outputs.cache-hit != 'true'
+      run: |
+        docker-compose -f docker-compose.yaml pull
+        docker save -o ~/.image-cache/docker-images.tar $(docker-compose config | awk '{if ($1 == "image:") print $2;}')
+    - if: steps.image-cache.outputs.cache-hit == 'true'
+      run: docker load -i ~/.image-cache/docker-images.tar
+
     - name: Build the stack
       run: |
         cp example.env .env
