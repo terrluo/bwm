@@ -44,10 +44,10 @@ jobs:
     - name: Build the stack
       run: |
         cp example.env .env
-        cp instance/example.config.py instance/dev.config.py
+        cp instance/example.config.py instance/test.config.py
         make compose-up
-        make db-upgrade
         make celery-up
+        make db-upgrade
     - name: Test with pytest
       run: |
         make test

@@ -21,7 +21,8 @@ DB_USERNAME = "demo"
 DB_PASSWORD = "123456"
 DB_HOST = "127.0.0.1"
 DB_NAME = "demo"
-DB_PORT = 3330
+# 测试数据库，数据保存在内存中
+DB_PORT = 3331
 SQLALCHEMY_DATABASE_URI = (
     f"mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
