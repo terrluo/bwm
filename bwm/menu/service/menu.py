@@ -67,6 +67,9 @@ class MenuService(CacheService):
         return endpoint, method
 
     def _check_route_key(self, route_key: str):
+        if not route_key:
+            return
+
         # 检查路由是否存在
         endpoint, method = self.unpack_route_key(route_key)
         try:
