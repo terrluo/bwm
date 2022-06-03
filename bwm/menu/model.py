@@ -28,7 +28,7 @@ class Menu(BaseModel):
     )
     parent_id = sa.Column(sa.Integer, nullable=False, default=0, comment="父菜单id")
     route_key = sa.Column(
-        sa.String(128), nullable=False, comment="路由key,可以通过key获取到对应的路由"
+        sa.String(128), nullable=False, default="", comment="路由key,可以通过key获取到对应的路由"
     )
     is_visible = sa.Column(
         sa.Boolean, nullable=False, default=IsVisible.YES, comment="菜单本身是否可见"
