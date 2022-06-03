@@ -6,33 +6,34 @@ repos:
     - id: check-yaml
     - id: check-toml
     - id: debug-statements
-    - id: end-of-file-fixer
-      files: ^.*.py$
     - id: mixed-line-ending
       args: ["--fix=lf"]
     - id: trailing-whitespace
     - id: check-case-conflict
     - id: check-merge-conflict
     - id: check-added-large-files
--   repo: https://github.com/pycqa/isort
-    rev: 5.10.1
-    hooks:
-      - id: isort
-        name: isort (python)
--   repo: https://github.com/psf/black
-    rev: 22.3.0
-    hooks:
-    - id: black
-      language_version: python3.8
--   repo: https://gitlab.com/pycqa/flake8
-    rev: 3.9.2
-    hooks:
-    - id: flake8
 -   repo: https://github.com/fsouza/autoflake8
     rev: v0.3.2
     hooks:
     - id: autoflake8
       args: [
+        "--in-place",
         "--remove-duplicate-keys",
-        "--remove-unused-variables"
+        "--remove-unused-variables",
+        "--exclude",
+        "manage.py,bwm/model.py,**/__init__.py",
       ]
+-   repo: https://gitlab.com/pycqa/flake8
+    rev: 3.9.2
+    hooks:
+    - id: flake8
+-   repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+    - id: black
+      language_version: python3.8
+-   repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
