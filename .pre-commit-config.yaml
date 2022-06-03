@@ -28,3 +28,11 @@ repos:
     rev: 3.9.2
     hooks:
     - id: flake8
+-   repo: https://github.com/fsouza/autoflake8
+    rev: v0.3.2
+    hooks:
+    - id: autoflake8
+      args: [
+        "remove-duplicate-keys",
+        "remove-unused-variables"
+      ]
