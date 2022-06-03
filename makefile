@@ -1,5 +1,5 @@
 celery-up:
-	celery -A celeryworker.celery worker -f logs/celery.log -D -l INFO
+	poetry run celery -A celeryworker.celery worker -f logs/celery.log -D -l INFO
 
 celery-stop:
 	ps auxww | grep 'celeryworker' | awk '{print $2}' | xargs kill -9
