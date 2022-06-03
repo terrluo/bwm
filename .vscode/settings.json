@@ -37,6 +37,7 @@
         "pytest",
         "pytz",
         "registercomponent",
+        "satackey",
         "SQLALCHEMY",
         "timezoneselector"
     ],
