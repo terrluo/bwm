@@ -14,5 +14,8 @@ install:
 	poetry shell
 	poetry install --no-root
 
+test:
+	poetry run test
+
 pcu:
 	pre-commit autoupdate
