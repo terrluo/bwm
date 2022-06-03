@@ -4,11 +4,26 @@ celery-up:
 celery-stop:
 	ps auxww | grep 'celeryworker' | awk '{print $2}' | xargs kill -9
 
+compose-pull:
+ifeq ($(ENV),)
+	docker compose -f docker-compose.yaml pull
+else
+	docker compose -f docker-compose.$(ENV).yaml pull
+endif
+
 compose-up:
+ifeq ($(ENV),)
 	docker compose -f docker-compose.yaml up -d
+else
+	docker compose -f docker-compose.$(ENV).yaml up -d
+endif
 
 compose-stop:
+ifeq ($(ENV),)
 	docker compose -f docker-compose.yaml stop
+else
+	docker compose -f docker-compose.$(ENV).yaml stop
+endif
 
 install:
 	poetry shell

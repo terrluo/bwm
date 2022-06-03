@@ -1,22 +1,24 @@
 version: "3"
 
 services:
-  mysql-demo:
+  mysql-demo-test:
     image: mysql:5.7
     ports:
-      - 3330:3306
-    volumes:
-      - mysql-demo-data:/var/lib/mysql
+      - 3331:3306
     command:
       [
         "--character-set-server=utf8mb4",
-        "--collation-server=utf8mb4_unicode_ci"
+        "--collation-server=utf8mb4_unicode_ci",
+        "--sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION"
       ]
     environment:
       - MYSQL_USER=demo
       - MYSQL_PASSWORD=123456
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=demo
+    tmpfs:
+      - /var/lib/mysql:rw,noexec,nosuid,size=1024m
+
   redis-session:
     image: redis
     ports:
@@ -46,7 +48,6 @@ services:
       - redis-cache-data:/data
 
 volumes:
-  mysql-demo-data:
   redis-session-data:
   redis-jwt-data:
   redis-celery-data:

@@ -48,11 +48,11 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.image-cache
-        key: image-cache-${{ runner.os }}-${{ hashFiles('**/docker-compose.yaml') }}
+        key: image-cache-${{ runner.os }}-${{ hashFiles('**/docker-compose.test.yaml') }}
     - if: steps.image-cache.outputs.cache-hit != 'true'
       run: |
-        docker-compose -f docker-compose.yaml pull
-        docker save -o ~/.image-cache/docker-images.tar $(docker-compose config | awk '{if ($1 == "image:") print $2;}')
+        make compose-pull ENV=test
+        docker save -o ~/.image-cache/docker-images.tar $(docker-compose -f docker-compose.test.yaml config | awk '{if ($1 == "image:") print $2;}')
     - if: steps.image-cache.outputs.cache-hit == 'true'
       run: docker load -i ~/.image-cache/docker-images.tar
 
@@ -60,7 +60,7 @@ jobs:
       run: |
         cp example.env .env
         cp instance/example.config.py instance/test.config.py
-        make compose-up
+        make compose-up ENV=test
         make celery-up
         sleep 5s
         make db-upgrade
