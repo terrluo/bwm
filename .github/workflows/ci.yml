@@ -51,11 +51,13 @@ jobs:
       with:
         path: ~/.image-cache
         key: image-cache-${{ runner.os }}-${{ hashFiles('**/docker-compose.test.yaml') }}
-    - if: steps.image-cache.outputs.cache-hit != 'true'
+    - name: Save image
+      if: steps.image-cache.outputs.cache-hit != 'true'
       run: |
         make compose-pull ENV=test
         docker save -o ~/.image-cache/docker-images.tar $(docker-compose -f docker-compose.test.yaml config | awk '{if ($1 == "image:") print $2;}')
-    - if: steps.image-cache.outputs.cache-hit == 'true'
+    - name: Load image
+      if: steps.image-cache.outputs.cache-hit == 'true'
       run: docker load -i ~/.image-cache/docker-images.tar
 
     - name: Build the stack
