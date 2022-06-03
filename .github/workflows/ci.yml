@@ -46,9 +46,9 @@ jobs:
         cp example.env .env
         cp instance/example.config.py instance/test.config.py
         make compose-up
+        make celery-up
         sleep 5s
         make db-upgrade
-        make celery-up
     - name: Test with pytest
       run: |
         make test
