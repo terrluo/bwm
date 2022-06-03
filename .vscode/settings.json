@@ -33,6 +33,7 @@
         "paramstyle",
         "pybabel",
         "pyfile",
+        "pypoetry",
         "pytest",
         "pytz",
         "registercomponent",
