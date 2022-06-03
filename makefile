@@ -15,7 +15,7 @@ install:
 	poetry install --no-root
 
 test:
-	poetry run test
+	poetry run pytest
 
 pcu:
 	pre-commit autoupdate
