@@ -1,4 +1,3 @@
-from attr import validate
 from marshmallow import Schema, fields
 from marshmallow.validate import Length, OneOf, Regexp
 
@@ -13,6 +12,6 @@ class AddMenuSchema(Schema):
     )
     parent_id = fields.Integer(load_default=0)
     route_key = fields.String(
-        required=True, validate=[Regexp(r".*#(GET|POST|PUT|DELETE)")]
+        missing="", validate=[Regexp(r".*#(GET|POST|PUT|DELETE)")]
     )
     is_visible = fields.Boolean(required=True, allow_none=False)
