@@ -1,4 +1,4 @@
-"""add role_permission
+"""permission delete role_id
 
 Revision ID: aef7928e56ed
 Revises: eb23f5a99e07
