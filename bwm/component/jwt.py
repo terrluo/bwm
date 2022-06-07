@@ -4,7 +4,6 @@ import redis
 from flask import Flask, session
 from flask_babel import lazy_gettext as _
 from flask_jwt_extended import JWTManager as _JWTManager
-from sqlalchemy.orm import load_only
 
 from bwm.component.base import Component
 
@@ -20,32 +19,32 @@ class JWTComponent(Component):
             return str(user.union_id)
 
         @jwt.user_lookup_loader
-        def user_lookup_callback(jwt_header, jwt_data) -> t.Optional[account.User]:
-            union_id = jwt_data["sub"]
-            user: t.Optional[account.User] = session.get(union_id)
-            if not user:
-                user = (
-                    account.User.query.filter_by(
-                        union_id=union_id, is_delete=account.User.IsDelete.NO
-                    )
-                    .options(
-                        load_only(
-                            account.User.union_id,
-                            account.User.username,
-                            account.User.password,
-                        )
-                    )
-                    .first()
-                )
-                session[union_id] = user
-            return user
+        def user_lookup_callback(
+            jwt_header: dict, jwt_data: dict
+        ) -> t.Optional[account.User]:
+            return _get_login_user(jwt_data)
 
         @jwt.token_in_blocklist_loader
-        def check_if_token_is_revoked(jwt_header, jwt_payload: dict):
-            jti = jwt_payload["jti"]
+        def check_if_token_is_revoked(jwt_header: dict, jwt_data: dict):
+            jti = jwt_data["jti"]
             revoked_key = self._app.config["JWT_REVOKED_KEY"].format(jti)
             token_in_redis = jwt.redis_blocklist.get(revoked_key)
             return token_in_redis is not None
+
+        @jwt.token_verification_loader
+        def token_verification(jwt_header: dict, jwt_data: dict):
+            return True if _get_login_user(jwt_data) else False
+
+        def _get_login_user(jwt_data: dict):
+            union_id = jwt_data["sub"]
+            user: t.Optional[account.User] = session.get(union_id)
+            if not user:
+                user = account.User.query.filter_by(
+                    union_id=union_id, is_delete=account.User.IsDelete.NO
+                ).first()
+                if user:
+                    session[union_id] = user
+            return user
 
 
 class JWTManager(_JWTManager):
