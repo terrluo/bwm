@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-07 17:53+0800\n"
+"POT-Creation-Date: 2022-06-07 18:04+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -74,4 +74,8 @@ msgstr "menu doesn't exists"
 #: bwm/permission/error/permission.py:11
 msgid "角色不存在"
 msgstr "role doesn't exist"
+
+#: bwm/permission/error/role.py:9
+msgid "角色已存在"
+msgstr "role already exists"
 
