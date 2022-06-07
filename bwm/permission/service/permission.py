@@ -12,6 +12,7 @@ class PermissionService(CacheService):
     @load_schema(AddPermission())
     def add_permission(self, data: t.Dict[str, t.Any]):
         _permission = self.model(
+            role_id=data["role_id"],
             menu_id=data["menu_id"],
             is_visible=data["is_visible"],
             is_operate=data["is_operate"],

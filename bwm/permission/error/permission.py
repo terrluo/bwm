@@ -8,3 +8,4 @@ class PermissionError:
 
     EXISTED = Error(code=60000, message=_("权限已存在"))
     MENU_NOT_FOUND = Error(code=60001, message=_("菜单不存在"))
+    ROLE_NOT_FOUND = Error(code=60002, message=_("角色不存在"))
