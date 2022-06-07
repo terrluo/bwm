@@ -6,7 +6,7 @@ from bwm.util.component import get_db
 
 
 class AddPermission(Schema):
-    menu_id = fields.Str(required=True)
+    menu_id = fields.Int(required=True)
     is_visible = fields.Bool(required=True)
     is_operate = fields.Bool(required=True)
 
@@ -21,6 +21,6 @@ class AddPermission(Schema):
             raise PermissionError.EXISTED
 
         if not db.session.query(
-            menu.Menu.query.filter_by(union_id=menu_id).exists()
+            menu.Menu.query.filter_by(id=menu_id).exists()
         ).scalar():
             raise PermissionError.MENU_NOT_FOUND

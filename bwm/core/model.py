@@ -3,7 +3,6 @@ from sqlalchemy import text
 
 from bwm.util.component import get_db
 from bwm.util.dt import to_local
-from bwm.util.model import generate_union_id
 
 _db = get_db()
 
@@ -20,13 +19,6 @@ class BaseModel(_db.Model):
         """是否删除"""
 
     id = sa.Column(sa.Integer, primary_key=True)
-    union_id = sa.Column(
-        sa.String(36),
-        nullable=False,
-        unique=True,
-        default=generate_union_id,
-        comment="关联id",
-    )
     create_time = sa.Column(
         sa.TIMESTAMP,
         nullable=False,

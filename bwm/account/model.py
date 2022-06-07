@@ -2,6 +2,7 @@ import sqlalchemy as sa
 
 from bwm.core.model import BaseModel, IsType
 from bwm.util.component import get_bcrypt
+from bwm.util.model import generate_union_id
 
 
 class User(BaseModel):
@@ -17,6 +18,13 @@ class User(BaseModel):
     class IsAdmin(IsType):
         """是否是管理员"""
 
+    union_id = sa.Column(
+        sa.String(36),
+        nullable=False,
+        unique=True,
+        default=generate_union_id,
+        comment="关联id",
+    )
     nickname = sa.Column(sa.String(16), nullable=False, unique=True, comment="昵称")
     username = sa.Column(sa.String(16), nullable=False, unique=True, comment="用户名")
     password = sa.Column(sa.String(60), nullable=False, comment="密码")
