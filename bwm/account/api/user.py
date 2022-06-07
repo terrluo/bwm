@@ -1,7 +1,5 @@
-import uuid
-
 from flask import request
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import current_user, jwt_required
 from flask_restful import fields, marshal_with
 
 from bwm.account.service.user import UserService
@@ -21,8 +19,8 @@ user_info = {
 class User(Resource):
     @marshal_with(user_info)
     @jwt_required()
-    def get(self, union_id: uuid.UUID):
-        return UserService().get_active_user(union_id)
+    def get(self):
+        return current_user
 
 
 class UserList(Resource):
@@ -32,5 +30,5 @@ class UserList(Resource):
         return UserService().get_all_user(request.args)
 
 
-user_api.add_resource(User, "/<uuid:union_id>")
+user_api.add_resource(User, "")
 user_api.add_resource(UserList, "")

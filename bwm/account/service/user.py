@@ -75,7 +75,10 @@ class UserService(Service):
 
         access_token = create_access_token(user)
         refresh_token = create_refresh_token(user)
-        return {"access_token": access_token, "refresh_token": refresh_token}
+        return {
+            "access_token": access_token,
+            "refresh_token": refresh_token,
+        }
 
     def logout(self):
         token = get_jwt()

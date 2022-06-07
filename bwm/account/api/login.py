@@ -10,7 +10,12 @@ login_bp, login_api = create_route("login", __name__, url_prefix="/api")
 
 
 class Login(Resource):
-    @marshal_with({"access_token": fields.String(), "refresh_token": fields.String()})
+    @marshal_with(
+        {
+            "access_token": fields.String(),
+            "refresh_token": fields.String(),
+        }
+    )
     def post(self):
         return UserService().login(request.json)
 

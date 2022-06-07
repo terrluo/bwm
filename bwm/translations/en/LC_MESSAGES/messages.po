@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-07 14:32+0800\n"
+"POT-Creation-Date: 2022-06-07 15:10+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -30,7 +30,7 @@ msgstr "registered"
 msgid "用户不存在"
 msgstr "user doesn't exist"
 
-#: bwm/account/api/login.py:24
+#: bwm/account/api/login.py:29
 #, python-format
 msgid "撤销%(token_type)s令牌成功"
 msgstr "revoke %(token_type)s token successfully"
