@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-07 15:10+0800\n"
+"POT-Creation-Date: 2022-06-07 17:12+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: bwm/account/error.py:9 bwm/account/service/user.py:73
+#: bwm/account/error.py:9 bwm/account/service/user.py:72
 msgid "用户名或密码错误"
 msgstr "username or password error"
 
@@ -43,7 +43,7 @@ msgstr "registered successfully"
 msgid "用户已注册"
 msgstr "user is registered"
 
-#: bwm/component/jwt.py:61
+#: bwm/component/jwt.py:69
 msgid "redis_blocklist 未初始化"
 msgstr "redis_blocklist is not initialized"
 
@@ -62,4 +62,12 @@ msgstr "menu already exists"
 #: bwm/menu/error.py:10
 msgid "路由不存在"
 msgstr "route doesn't exist"
+
+#: bwm/permission/error/permission.py:9
+msgid "权限已存在"
+msgstr "permission already exists"
+
+#: bwm/permission/error/permission.py:10
+msgid "菜单不存在"
+msgstr "menu doesn't exists"
 
