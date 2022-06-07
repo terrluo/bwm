@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-07 13:48+0800\n"
+"POT-Creation-Date: 2022-06-07 14:32+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.10.1\n"
 
-#: bwm/account/error.py:9 bwm/account/service/user.py:72
+#: bwm/account/error.py:9 bwm/account/service/user.py:73
 msgid "用户名或密码错误"
 msgstr "username or password error"
 
@@ -26,7 +26,7 @@ msgstr "username or password error"
 msgid "已注册"
 msgstr "registered"
 
-#: bwm/account/error.py:21 bwm/account/service/user.py:46
+#: bwm/account/error.py:21 bwm/account/service/user.py:47
 msgid "用户不存在"
 msgstr "user doesn't exist"
 
@@ -39,7 +39,7 @@ msgstr "revoke %(token_type)s token successfully"
 msgid "注册成功"
 msgstr "registered successfully"
 
-#: bwm/account/service/user.py:55
+#: bwm/account/service/user.py:56
 msgid "用户已注册"
 msgstr "user is registered"
 
