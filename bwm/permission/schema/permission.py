@@ -19,7 +19,7 @@ class AddPermission(Schema):
         db = get_db()
 
         if not db.session.query(
-            menu.Role.query.filter_by(id=role_id).exists()
+            permission.Role.query.filter_by(id=role_id).exists()
         ).scalar():
             raise PermissionError.ROLE_NOT_FOUND
 
