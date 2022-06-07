@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-07 18:04+0800\n"
+"POT-Creation-Date: 2022-06-07 20:21+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -43,7 +43,7 @@ msgstr "registered successfully"
 msgid "用户已注册"
 msgstr "user is registered"
 
-#: bwm/component/jwt.py:69
+#: bwm/component/jwt.py:68
 msgid "redis_blocklist 未初始化"
 msgstr "redis_blocklist is not initialized"
 
