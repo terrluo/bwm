@@ -57,7 +57,6 @@ class UserService(Service):
             raise RegisterError.REGISTERED
 
         user = self.user_model(nickname=username, username=username)
-        user.union_id = user.generate_union_id()
         user.password = user.generate_password(password)
         self.db.session.add(user)
         self.db.session.commit()

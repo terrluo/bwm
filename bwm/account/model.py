@@ -1,5 +1,3 @@
-import uuid
-
 import sqlalchemy as sa
 
 from bwm.core.model import BaseModel, IsType
@@ -25,9 +23,6 @@ class User(BaseModel):
     is_admin = sa.Column(
         sa.Boolean, nullable=False, default=IsAdmin.NO, comment="是否是管理员, 管理员有所有权限"
     )
-
-    def generate_union_id(self):
-        return str(uuid.uuid4())
 
     def generate_password(self, password: str, rounds=None, prefix=None, bcrypt=None):
         return (
