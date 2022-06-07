@@ -1,4 +1,5 @@
 import typing as t
+import uuid
 
 from flask import current_app, session
 from flask_babel import lazy_gettext as _
@@ -37,9 +38,9 @@ class UserService(Service):
             self.user_model.query.filter_by(username=username).exists()
         ).scalar()
 
-    def get_active_user(self, user_id: int) -> t.Optional[User]:
+    def get_active_user(self, union_id: uuid.UUID) -> t.Optional[User]:
         user: t.Optional[User] = self.user_model.query.filter(
-            self.user_model.id == user_id,
+            self.user_model.union_id == str(union_id),
             self.user_model.is_delete == self.user_model.IsDelete.NO,
         ).first()
         if not user:
@@ -56,7 +57,7 @@ class UserService(Service):
             raise RegisterError.REGISTERED
 
         user = self.user_model(nickname=username, username=username)
-        user.login_id = user.generate_login_id()
+        user.union_id = user.generate_union_id()
         user.password = user.generate_password(password)
         self.db.session.add(user)
         self.db.session.commit()
@@ -78,12 +79,12 @@ class UserService(Service):
 
     def logout(self):
         token = get_jwt()
-        login_id: str = token["sub"]
+        union_id: str = token["sub"]
         jti: str = token["jti"]
         revoked_key = current_app.config["JWT_REVOKED_KEY"].format(jti)
         ex = current_app.config["JWT_ACCESS_TOKEN_EXPIRES"]
         util_get_jwt().redis_blocklist.set(revoked_key, "", ex=ex)
-        session.pop(login_id, None)
+        session.pop(union_id, None)
         return token
 
     def refresh(self):

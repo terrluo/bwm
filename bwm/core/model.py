@@ -19,6 +19,7 @@ class BaseModel(_db.Model):
         """是否删除"""
 
     id = sa.Column(sa.Integer, primary_key=True)
+    union_id = sa.Column(sa.String(36), nullable=False, unique=True, comment="关联id")
     create_time = sa.Column(
         sa.TIMESTAMP,
         nullable=False,

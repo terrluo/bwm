@@ -17,19 +17,19 @@ class JWTComponent(Component):
 
         @jwt.user_identity_loader
         def user_identity_lookup(user: User):
-            return user.login_id
+            return str(user.union_id)
 
         @jwt.user_lookup_loader
         def user_lookup_callback(jwt_header, jwt_data) -> t.Optional[User]:
-            login_id = jwt_data["sub"]
-            user: t.Optional[User] = session.get(login_id)
+            union_id = jwt_data["sub"]
+            user: t.Optional[User] = session.get(union_id)
             if not user:
                 user = (
-                    User.query.filter_by(login_id=login_id, is_delete=User.IsDelete.NO)
-                    .options(load_only(User.login_id, User.username, User.password))
+                    User.query.filter_by(union_id=union_id, is_delete=User.IsDelete.NO)
+                    .options(load_only(User.union_id, User.username, User.password))
                     .first()
                 )
-                session[login_id] = user
+                session[union_id] = user
             return user
 
         @jwt.token_in_blocklist_loader
