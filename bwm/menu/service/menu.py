@@ -2,14 +2,14 @@ import typing as t
 
 from bwm.core.schema import load_schema
 from bwm.core.service import CacheService
-from bwm.menu.model import Menu
 from bwm.menu.schema import AddMenuSchema
+from bwm.model import menu
 
 
 class MenuService(CacheService):
-    menu_model = Menu
+    menu_model = menu.Menu
 
-    def get_all_menu(self, timeout=60 * 60 * 24) -> t.List[Menu]:
+    def get_all_menu(self, timeout=60 * 60 * 24) -> t.List[menu.Menu]:
         all_menu = self.cache.get("all_menu")
         if not all_menu:
             all_menu = self.menu_model.query.filter(

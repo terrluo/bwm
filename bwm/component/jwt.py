@@ -11,22 +11,30 @@ from bwm.component.base import Component
 
 class JWTComponent(Component):
     def register(self):
-        from bwm.account.model import User
+        from bwm.model import account
 
         jwt.init_app(self._app)
 
         @jwt.user_identity_loader
-        def user_identity_lookup(user: User):
+        def user_identity_lookup(user: account.User):
             return str(user.union_id)
 
         @jwt.user_lookup_loader
-        def user_lookup_callback(jwt_header, jwt_data) -> t.Optional[User]:
+        def user_lookup_callback(jwt_header, jwt_data) -> t.Optional[account.User]:
             union_id = jwt_data["sub"]
-            user: t.Optional[User] = session.get(union_id)
+            user: t.Optional[account.User] = session.get(union_id)
             if not user:
                 user = (
-                    User.query.filter_by(union_id=union_id, is_delete=User.IsDelete.NO)
-                    .options(load_only(User.union_id, User.username, User.password))
+                    account.User.query.filter_by(
+                        union_id=union_id, is_delete=account.User.IsDelete.NO
+                    )
+                    .options(
+                        load_only(
+                            account.User.union_id,
+                            account.User.username,
+                            account.User.password,
+                        )
+                    )
                     .first()
                 )
                 session[union_id] = user

@@ -11,15 +11,15 @@ from flask_jwt_extended import (
 )
 
 from bwm.account.error import LoginError, RegisterError, UserError
-from bwm.account.model import User
 from bwm.account.schema import LoginSchema, RegisterSchema
 from bwm.core.schema import PageSchema, load_schema
 from bwm.core.service import Service
+from bwm.model import account
 from bwm.util.component import get_jwt as util_get_jwt
 
 
 class UserService(Service):
-    user_model = User
+    user_model = account.User
 
     @load_schema(PageSchema())
     def get_all_user(self, data):
@@ -38,8 +38,8 @@ class UserService(Service):
             self.user_model.query.filter_by(username=username).exists()
         ).scalar()
 
-    def get_active_user(self, union_id: uuid.UUID) -> t.Optional[User]:
-        user: t.Optional[User] = self.user_model.query.filter(
+    def get_active_user(self, union_id: uuid.UUID) -> t.Optional[account.User]:
+        user: t.Optional[account.User] = self.user_model.query.filter(
             self.user_model.union_id == str(union_id),
             self.user_model.is_delete == self.user_model.IsDelete.NO,
         ).first()
@@ -65,7 +65,7 @@ class UserService(Service):
     def login(self, data):
         username: str = data["username"]
         password: str = data["password"]
-        user: t.Optional[User] = self.user_model.query.filter_by(
+        user: t.Optional[account.User] = self.user_model.query.filter_by(
             username=username
         ).first()
         if not user or not user.check_password(password):
