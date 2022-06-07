@@ -1,13 +1,14 @@
-import typing as t
 from functools import partial, wraps
 
 from marshmallow import Schema, fields
 from marshmallow.validate import Range
 
+from bwm.type import ServiceData
+
 
 def load_schema(schema: Schema, is_method=True):
     def inner(func):
-        def wrapper(self, data: t.Dict[str, t.Any], *args, **kwargs):
+        def wrapper(self, data: ServiceData, *args, **kwargs):
             load_data = schema.load(data)
             return func(self, load_data, *args, **kwargs)
 

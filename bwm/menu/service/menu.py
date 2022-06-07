@@ -4,6 +4,7 @@ from bwm.core.schema import load_schema
 from bwm.core.service import CacheService
 from bwm.menu.schema import AddMenuSchema
 from bwm.model import menu
+from bwm.type import ServiceData
 
 
 class MenuService(CacheService):
@@ -20,7 +21,7 @@ class MenuService(CacheService):
         return all_menu
 
     @load_schema(AddMenuSchema())
-    def add_menu(self, data: t.Dict[str, t.Any]):
+    def add_menu(self, data: ServiceData):
         menu_name = data["menu_name"]
         menu_order = data["menu_order"]
         menu_type = data["menu_type"]
