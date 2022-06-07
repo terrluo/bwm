@@ -11,7 +11,6 @@ user_bp, user_api = create_route("user", __name__, url_prefix="/api/user")
 
 
 user_info = {
-    "union_id": fields.String(),
     "nickname": fields.String(),
     "username": fields.String(),
     "create_time": fields.DateTime(dt_format="iso8601", attribute="local_create_time"),
