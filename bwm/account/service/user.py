@@ -13,7 +13,7 @@ from flask_jwt_extended import (
 from bwm.account.error import LoginError, RegisterError, UserError
 from bwm.account.model import User
 from bwm.account.schema import LoginSchema, RegisterSchema
-from bwm.core.schema import PageSchema, load_data
+from bwm.core.schema import PageSchema, load_schema
 from bwm.core.service import Service
 from bwm.util.component import get_jwt as util_get_jwt
 
@@ -21,7 +21,7 @@ from bwm.util.component import get_jwt as util_get_jwt
 class UserService(Service):
     user_model = User
 
-    @load_data(PageSchema())
+    @load_schema(PageSchema())
     def get_all_user(self, data):
         page = data["page"]
         limit = data["limit"]
@@ -48,7 +48,7 @@ class UserService(Service):
             raise UserError.NOT_FOUND
         return user
 
-    @load_data(RegisterSchema())
+    @load_schema(RegisterSchema())
     def register(self, data):
         username = data["username"]
         password = data["password"]
@@ -61,7 +61,7 @@ class UserService(Service):
         self.db.session.add(user)
         self.db.session.commit()
 
-    @load_data(LoginSchema())
+    @load_schema(LoginSchema())
     def login(self, data):
         username: str = data["username"]
         password: str = data["password"]

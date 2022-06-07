@@ -2,7 +2,7 @@ import typing as t
 
 from flask import current_app
 
-from bwm.core.schema import load_data
+from bwm.core.schema import load_schema
 from bwm.core.service import CacheService
 from bwm.menu.error import MenuError
 from bwm.menu.model import Menu
@@ -22,7 +22,7 @@ class MenuService(CacheService):
             self.cache.set("all_menu", all_menu, timeout)
         return all_menu
 
-    @load_data(AddMenuSchema())
+    @load_schema(AddMenuSchema())
     def add_menu(self, data: t.Dict[str, t.Any]):
         self._add_menu_check(data)
 
@@ -44,7 +44,7 @@ class MenuService(CacheService):
         self.db.session.commit()
         return menu
 
-    @load_data(AddMenuSchema(partial={"menu_order", "is_visible"}))
+    @load_schema(AddMenuSchema(partial={"menu_order", "is_visible"}))
     def _add_menu_check(self, data: t.Dict[str, t.Any]):
         parent_id = data["parent_id"]
         menu_type = data["menu_type"]

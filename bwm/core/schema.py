@@ -5,7 +5,7 @@ from marshmallow import Schema, fields
 from marshmallow.validate import Range
 
 
-def load_data(schema: Schema, is_method=True):
+def load_schema(schema: Schema, is_method=True):
     def inner(func):
         def wrapper(self, data: t.Dict[str, t.Any], *args, **kwargs):
             load_data = schema.load(data)
