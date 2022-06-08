@@ -1,4 +1,7 @@
+import typing as t
+
 import sqlalchemy as sa
+from flask_bcrypt import Bcrypt
 
 from bwm.core.model import BaseModel, IsType
 from bwm.util.component import get_bcrypt
@@ -32,15 +35,17 @@ class User(BaseModel):
         sa.Boolean, nullable=False, default=IsAdmin.NO, comment="是否是管理员, 管理员有所有权限"
     )
 
-    def generate_password(self, password: str, rounds=None, prefix=None, bcrypt=None):
+    def generate_password(
+        self, password: str, rounds=None, prefix=None, bcrypt: t.Optional[Bcrypt] = None
+    ):
         return (
             self._get_bcrypt(bcrypt)
             .generate_password_hash(password, rounds=rounds, prefix=prefix)
             .decode("utf-8")
         )
 
-    def check_password(self, password: str, bcrypt=None):
+    def check_password(self, password: str, bcrypt: t.Optional[Bcrypt] = None):
         return self._get_bcrypt(bcrypt).check_password_hash(self.password, password)
 
-    def _get_bcrypt(self, bcrypt=None):
+    def _get_bcrypt(self, bcrypt: t.Optional[Bcrypt] = None):
         return bcrypt if bcrypt else get_bcrypt()
