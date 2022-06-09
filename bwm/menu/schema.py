@@ -1,10 +1,10 @@
-from flask import current_app
 from marshmallow import Schema, fields, validates_schema
 from marshmallow.validate import Length, OneOf, Regexp
 
 from bwm.menu.error import MenuError
 from bwm.model import menu
 from bwm.util.component import get_db
+from bwm.util.permission import check_route_key
 
 
 class AddMenuSchema(Schema):
@@ -27,10 +27,14 @@ class AddMenuSchema(Schema):
         menu_name = data["menu_name"]
         route_key = data["route_key"]
 
-        self._check_route_key(route_key)
+        if not route_key:
+            try:
+                check_route_key(route_key)
+            except KeyError:
+                raise MenuError.ROUTE_NOT_FOUND
 
         # 检查菜单是否存在
-        is_exist = (
+        if (
             get_db()
             .session.query(
                 menu.Menu.query.filter_by(
@@ -38,25 +42,5 @@ class AddMenuSchema(Schema):
                 ).exists()
             )
             .scalar()
-        )
-        if is_exist:
+        ):
             raise MenuError.EXISTED
-
-    def _check_route_key(self, route_key: str):
-        if not route_key:
-            return
-
-        # 检查路由是否存在
-        endpoint, method = self._unpack_route_key(route_key)
-        try:
-            rules = current_app.url_map.iter_rules(endpoint.lower())
-            for rule in rules:
-                if method.upper() not in rule.methods:
-                    raise KeyError
-                break
-        except KeyError:
-            raise MenuError.ROUTE_NOT_FOUND
-
-    def _unpack_route_key(self, route_key: str):
-        endpoint, method = route_key.split("#", 2)
-        return endpoint, method

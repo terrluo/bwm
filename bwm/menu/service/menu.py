@@ -5,39 +5,26 @@ from bwm.core.schema import load_schema
 from bwm.core.service import CacheService
 from bwm.menu.schema import AddMenuSchema
 from bwm.model import menu
-from bwm.type import ServiceData
+from bwm.type import Data
+
+_Menu = menu.Menu
 
 
 class MenuService(CacheService):
-    menu_model = menu.Menu
+    model = _Menu
 
-    def get_all_menu(self, timeout=60 * 60 * 24) -> t.List[menu.Menu]:
+    def get_menu_data(self, timeout=60 * 60 * 24) -> t.Dict[int, Data]:
         key = CacheKey.menu()
-        all_menu = self.cache.get(key)
-        if all_menu is None:
-            all_menu = self.menu_model.query.filter(
-                self.menu_model.is_delete == self.menu_model.IsDelete.NO
-            ).all()
-            all_menu = {menu.id: menu for menu in all_menu}
-            self.cache.set(key, all_menu, timeout)
-        return all_menu
+        menu_data = self.cache.get(key)
+        if menu_data is None:
+            menu_list: t.List[_Menu] = self.available.all()
+            menu_data = {menu.id: menu.to_dict() for menu in menu_list}
+            self.cache.set(key, menu_data, timeout)
+        return menu_data
 
     @load_schema(AddMenuSchema())
-    def add_menu(self, data: ServiceData):
-        menu_name = data["menu_name"]
-        menu_order = data["menu_order"]
-        menu_type = data["menu_type"]
-        parent_id = data["parent_id"]
-        route_key = data["route_key"]
-        is_visible = data["is_visible"]
-        menu = self.menu_model(
-            menu_name=menu_name,
-            menu_order=menu_order,
-            menu_type=menu_type,
-            parent_id=parent_id,
-            route_key=route_key,
-            is_visible=is_visible,
-        )
+    def add_menu(self, data: Data):
+        menu = self.model(**data)
         self.db.session.add(menu)
         self.db.session.commit()
         return menu

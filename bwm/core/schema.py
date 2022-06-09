@@ -3,12 +3,12 @@ from functools import partial, wraps
 from marshmallow import Schema, fields
 from marshmallow.validate import Range
 
-from bwm.type import ServiceData
+from bwm.type import Data
 
 
 def load_schema(schema: Schema, is_method=True):
     def inner(func):
-        def wrapper(self, data: ServiceData, *args, **kwargs):
+        def wrapper(self, data: Data, *args, **kwargs):
             load_data = schema.load(data)
             return func(self, load_data, *args, **kwargs)
 

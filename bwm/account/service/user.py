@@ -15,33 +15,33 @@ from bwm.account.schema import LoginSchema, RegisterSchema
 from bwm.core.schema import PageSchema, load_schema
 from bwm.core.service import Service
 from bwm.model import account
+from bwm.type import Data
 from bwm.util.component import get_jwt as util_get_jwt
+
+_User = account.User
 
 
 class UserService(Service):
-    user_model = account.User
+    model = _User
 
     @load_schema(PageSchema())
-    def get_all_user(self, data):
+    def get_all_user(self, data: Data):
         page = data["page"]
         limit = data["limit"]
 
-        all_user = self.user_model.query.filter(
-            self.user_model.is_delete == self.user_model.IsDelete.NO
-        )
+        all_user = self.available
         count = all_user.count()
         all_user = self.page(all_user, page, limit).all()
         return dict(data=all_user, count=count)
 
     def is_exist(self, username: str):
         return self.db.session.query(
-            self.user_model.query.filter_by(username=username).exists()
+            self.model.query.filter_by(username=username).exists()
         ).scalar()
 
-    def get_active_user(self, union_id: uuid.UUID) -> t.Optional[account.User]:
-        user: t.Optional[account.User] = self.user_model.query.filter(
-            self.user_model.union_id == str(union_id),
-            self.user_model.is_delete == self.user_model.IsDelete.NO,
+    def get_active_user(self, union_id: uuid.UUID) -> t.Optional[_User]:
+        user: t.Optional[_User] = self.available.filter(
+            self.model.union_id == str(union_id),
         ).first()
         if not user:
             current_app.logger.error(_("用户不存在"))
@@ -56,7 +56,7 @@ class UserService(Service):
             current_app.logger.error(_("用户已注册"))
             raise RegisterError.REGISTERED
 
-        user = self.user_model(nickname=username, username=username)
+        user = self.model(nickname=username, username=username)
         user.password = user.generate_password(password)
         self.db.session.add(user)
         self.db.session.commit()
@@ -65,9 +65,7 @@ class UserService(Service):
     def login(self, data):
         username: str = data["username"]
         password: str = data["password"]
-        user: t.Optional[account.User] = self.user_model.query.filter_by(
-            username=username
-        ).first()
+        user: t.Optional[_User] = self.available.filter_by(username=username).first()
         if not user or not user.check_password(password):
             current_app.logger.error(_("用户名或密码错误"))
             raise LoginError.USERNAME_PASSWORD_ERROR

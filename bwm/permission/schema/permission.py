@@ -7,21 +7,16 @@ from bwm.util.component import get_db
 _db = get_db()
 
 
-def _validate_menu(menu_id):
+def _validate_menu(menu_id: int):
     if not _db.session.query(menu.Menu.query.filter_by(id=menu_id).exists()).scalar():
         raise PermissionError.MENU_NOT_FOUND
 
 
-def _validate_role(role_id):
+def _validate_role(role_id: int):
     if not _db.session.query(
         permission.Role.query.filter_by(id=role_id).exists()
     ).scalar():
         raise PermissionError.ROLE_NOT_FOUND
-
-
-class GetPermission(Schema):
-    role_id = fields.Int(required=True, validate=[_validate_role])
-    menu_id = fields.Int(messing=None, validate=[_validate_menu])
 
 
 class AddPermission(Schema):

@@ -1,11 +1,12 @@
 import typing as t
 
 import redis
-from flask import Flask, session
+from flask import Flask, request, session
 from flask_babel import lazy_gettext as _
 from flask_jwt_extended import JWTManager as _JWTManager
 
 from bwm.component.base import Component
+from bwm.type import Data
 
 
 class JWTComponent(Component):
@@ -33,17 +34,22 @@ class JWTComponent(Component):
 
         @jwt.token_verification_loader
         def token_verification(jwt_header: dict, jwt_data: dict):
-            return True if _get_login_user(jwt_data) else False
+            user = _get_login_user(jwt_data)
+            if user is not None:
+                return user.has_permission(request.endpoint, request.method)
+            return False
 
         def _get_login_user(jwt_data: dict):
             union_id = jwt_data["sub"]
-            user: t.Optional[account.User] = session.get(union_id)
-            if not user:
-                user = account.User.query.filter_by(
-                    union_id=union_id, is_delete=account.User.IsDelete.NO
+            user_data: Data = session.get(union_id)
+            if user_data is None:
+                user: t.Optional[account.User] = account.User.query.filter_by(
+                    union_id=union_id, is_delete=False
                 ).first()
                 if user:
-                    session[union_id] = user
+                    session[union_id] = user.to_dict()
+            else:
+                user = account.User(**user_data)
             return user
 
 
