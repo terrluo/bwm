@@ -22,5 +22,9 @@ class CacheKey:
         return "menu"
 
     @classmethod
-    def permission(cls, user_id: int):
-        return f"permission_{user_id}"
+    def user_permission(cls, user_id: int):
+        return f"user_permission_{user_id}"
+
+    @classmethod
+    def role_permission(cls, role_id: int):
+        return f"role_permission_{role_id}"

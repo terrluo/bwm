@@ -1,8 +1,5 @@
 import typing as t
 
-from sqlalchemy import func
-from sqlalchemy.engine.row import Row
-
 from bwm.constants import CacheKey
 from bwm.core.schema import load_schema
 from bwm.core.service import CacheService
@@ -29,37 +26,68 @@ class PermissionService(CacheService):
         return _permission
 
     def get_permission_data(self, user_id: int, timeout=60 * 60 * 24):
-        key = CacheKey.permission(user_id)
-        permission_data: t.Optional[Data] = self.cache.get(key)
-        if permission_data is None:
-            from bwm.permission.service.role_user import RoleUserService
+        user_key = CacheKey.user_permission(user_id)
+        user_permission_data: t.Optional[Data] = self.cache.get(user_key)
+        if user_permission_data is None:
+            user_permission_data = self._get_user_permission_data(user_id, timeout)
+            self.cache.set(user_key, user_permission_data, timeout=timeout)
+        return user_permission_data
 
-            role_ids = RoleUserService().get_role_ids(user_id)
+    def _get_role_permission_data(self, role_ids: t.Set[int]):
+        role_permission_data = {}
+        for role_id in role_ids:
+            role_key = CacheKey.role_permission(role_id)
+            role_permission = self.cache.get(role_key)
+            if role_permission:
+                role_permission_data[role_id] = role_permission
+        return role_permission_data
+
+    def _get_user_permission_data(self, user_id: int, timeout: int):
+        from bwm.menu.service.menu import MenuService
+        from bwm.permission.service.role_user import RoleUserService
+
+        menu_service = MenuService()
+        role_user_service = RoleUserService()
+        permission_list = []
+        user_permission_data = {}
+        role_ids = role_user_service.get_role_ids(user_id)
+        role_permission_data = self._get_role_permission_data(role_ids)
+        no_cache_role_ids = role_ids - set(role_permission_data.keys())
+        if no_cache_role_ids:
             permission_list = (
                 self.available.filter(
-                    self.model.role_id.in_(role_ids),
-                )
-                .group_by(
-                    self.model.menu_id,
+                    self.model.role_id.in_(no_cache_role_ids),
                 )
                 .with_entities(
+                    self.model.role_id,
                     self.model.menu_id,
-                    func.MAX(self.model.is_visible).label("is_visible"),
-                    func.MAX(self.model.is_operate).label("is_operate"),
+                    self.model.is_visible,
+                    self.model.is_operate,
                 )
+                .order_by(self.model.role_id, self.model.menu_id)
             ).all()
-            permission_data = self._handle_permission_data(permission_list)
-            self.cache.set(key, permission_data, timeout)
 
-        return permission_data
+        for permission_data in permission_list:
+            permission_data: Data = permission_data._asdict()
+            role_id = permission_data["role_id"]
+            menu_id = permission_data["menu_id"]
+            route_key = menu_service.get_route_key(menu_id)
+            role_permission_data.setdefault(role_id, {})[route_key] = dict(
+                is_visible=permission_data["is_visible"],
+                is_operate=permission_data["is_operate"],
+            )
 
-    def _handle_permission_data(self, permission_list: t.List[Row]):
-        from bwm.menu.service.menu import MenuService
+        for role_id, permission_data in role_permission_data.items():
+            role_key = CacheKey.role_permission(role_id)
+            self.cache.set(role_key, permission_data, timeout=timeout)
 
-        menu_data = MenuService().get_menu_data()
-        permission_data = {}
-        for perm in permission_list:
-            perm_data = perm._asdict()
-            menu = menu_data[perm_data["menu_id"]]
-            permission_data[menu["route_key"]] = perm_data
-        return permission_data
+            for route_key, _permission_data in permission_data.items():
+                is_visible = _permission_data["is_visible"]
+                is_operate = _permission_data["is_operate"]
+                data = user_permission_data.setdefault(route_key, _permission_data)
+                if is_visible:
+                    data["is_visible"] = is_visible
+                if is_operate:
+                    data["is_operate"] = is_operate
+
+        return user_permission_data

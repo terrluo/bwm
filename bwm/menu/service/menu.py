@@ -24,8 +24,11 @@ class MenuService(CacheService):
                 )
                 for menu in menu_list
             }
-            self.cache.set(key, menu_data, timeout)
+            self.cache.set(key, menu_data, timeout=timeout)
         return menu_data
+
+    def get_route_key(self, menu_id: int):
+        return self.get_menu_data()[menu_id]["route_key"]
 
     @load_schema(AddMenuSchema())
     def add_menu(self, data: Data):
