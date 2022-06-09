@@ -18,7 +18,12 @@ class MenuService(CacheService):
         menu_data = self.cache.get(key)
         if menu_data is None:
             menu_list: t.List[_Menu] = self.available.all()
-            menu_data = {menu.id: menu.to_dict() for menu in menu_list}
+            menu_data = {
+                menu.id: menu.to_dict(
+                    exclude={"id", "create_time", "update_time", "is_delete"}
+                )
+                for menu in menu_list
+            }
             self.cache.set(key, menu_data, timeout)
         return menu_data
 

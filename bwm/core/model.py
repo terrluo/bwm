@@ -1,3 +1,5 @@
+import typing as t
+
 import sqlalchemy as sa
 from sqlalchemy import text
 
@@ -34,9 +36,11 @@ class BaseModel(_db.Model):
     def local_update_time(self):
         return to_local(self.update_time)
 
-    def to_dict(self) -> Data:
+    def to_dict(self, exclude: t.Optional[t.Set[str]] = None) -> Data:
         data = {}
         for column in self.__table__.columns:
             name: str = column.name
+            if exclude is not None and name in exclude:
+                continue
             data[name] = getattr(self, name)
         return data
