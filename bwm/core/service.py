@@ -1,3 +1,5 @@
+from flask import current_app
+
 from bwm.util.component import get_cache, get_db
 
 _db = get_db()
@@ -18,3 +20,7 @@ class Service:
 
 class CacheService(Service):
     cache = _cache
+
+    @property
+    def cache_timeout(self):
+        return current_app.config.get("CACHE_DEFAULT_TIMEOUT", 300)

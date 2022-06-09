@@ -42,7 +42,7 @@ class User(BaseModel):
 
         from bwm.permission.service.permission import PermissionService
 
-        permission_data = PermissionService().get_permission_data(self.id)
+        permission_data = PermissionService().get_user_permission_data(self.id)
         route_key = generate_route_key(endpoint, method)
         perm: Data = permission_data.get(route_key)
         if method == HttpMethod.GET:
