@@ -32,7 +32,7 @@ class AddPermission(Schema):
 
         if _db.session.query(
             permission.Permission.query.filter_by(
-                role_id=role_id, menu_id=menu_id
+                role_id=role_id, menu_id=menu_id, is_delete=False
             ).exists()
         ).scalar():
             raise PermissionError.EXISTED

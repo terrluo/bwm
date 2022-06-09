@@ -36,6 +36,9 @@ class User(BaseModel):
     )
 
     def has_permission(self, endpoint: str, method: str) -> bool:
+        if self.is_admin:
+            return True
+
         method = method.upper()
         if method not in HTTP_METHOD_LIST:
             return True
@@ -44,7 +47,7 @@ class User(BaseModel):
 
         permission_data = PermissionService().get_user_permission_data(self.id)
         route_key = generate_route_key(endpoint, method)
-        perm: Data = permission_data.get(route_key)
+        perm: Data = permission_data.get(route_key, {})
         if method == HttpMethod.GET:
             return perm.get("is_visible")
         return perm.get("is_operate")

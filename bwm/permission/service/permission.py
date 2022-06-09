@@ -23,7 +23,7 @@ class PermissionService(CacheService):
         )
         self.db.session.add(p)
         self.db.session.commit()
-        self._update_permission_cache(p)
+        self._update_permission_cache([p])
         return p
 
     def get_user_permission_data(self, user_id: int, timeout=60 * 60 * 24):
@@ -49,8 +49,29 @@ class PermissionService(CacheService):
             self.cache.set(user_key, user_permission_data, timeout=timeout)
         return user_permission_data
 
-    def _update_permission_cache(self, p: _Permission):
-        return
+    def _update_permission_cache(self, permission_list: t.List[_Permission]):
+        from bwm.menu.service.menu import MenuService
+        from bwm.permission.service.role_user import RoleUserService
+
+        menu_service = MenuService()
+        role_ids = {p.role_id for p in permission_list}
+        role_permission_data = self._get_role_permission_data(role_ids)
+        for p in permission_list:
+            route_key = menu_service.get_route_key(p.menu_id)
+            role_permission_data[p.role_id].setdefault(route_key, {}).update(
+                dict(
+                    is_visible=p.is_visible,
+                    is_operate=p.is_operate,
+                )
+            )
+        for role_id in role_ids:
+            role_key = CacheKey.role_permission(role_id)
+            self.cache.set(role_key, role_permission_data[role_id])
+
+        user_ids = RoleUserService().get_user_ids(role_ids)
+        for user_id in user_ids:
+            user_key = CacheKey.user_permission(user_id)
+            self.cache.delete(user_key)
 
     def _get_role_permission_data(self, role_ids: t.Set[int], timeout: int = None):
         if timeout is None:

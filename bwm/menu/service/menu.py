@@ -32,7 +32,19 @@ class MenuService(CacheService):
 
     @load_schema(AddMenuSchema())
     def add_menu(self, data: Data):
-        menu = self.model(**data)
-        self.db.session.add(menu)
+        m = self.model(**data)
+        self.db.session.add(m)
         self.db.session.commit()
-        return menu
+
+        self._update_menu_cache([m])
+        return m
+
+    def _update_menu_cache(self, menu_list: t.List[_Menu]):
+        key = CacheKey.menu()
+        cache_menu = self.cache.get(key)
+        if cache_menu:
+            for m in menu_list:
+                cache_menu[m.id] = m.to_dict(
+                    exclude={"id", "create_time", "update_time", "is_delete"}
+                )
+            self.cache.set(key, cache_menu)
