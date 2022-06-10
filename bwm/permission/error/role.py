@@ -6,4 +6,4 @@ from bwm.core.error import Error
 class RoleError:
     """权限错误"""
 
-    EXISTED = Error(code=70000, message=_("角色已存在"))
+    EXISTED = Error(70000, _("角色已存在"))

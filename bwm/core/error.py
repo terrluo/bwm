@@ -49,4 +49,4 @@ class Error(Exception):
 class CommonError:
     """通常错误"""
 
-    REQUEST_DATA_ERROR = Error(code=10000, message=_("请求数据错误"))
+    REQUEST_DATA_ERROR = Error(10000, _("请求数据错误"))
