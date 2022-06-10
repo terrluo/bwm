@@ -17,15 +17,17 @@ user_info = {
 
 
 class User(Resource):
+    method_decorators = [jwt_required()]
+
     @marshal_with(user_info)
-    @jwt_required()
     def get(self):
         return current_user
 
 
 class UserList(Resource):
+    method_decorators = [jwt_required()]
+
     @marshal_with(marshal_list(user_info))
-    @jwt_required()
     def get(self):
         return UserService().get_all_user(request.args)
 
