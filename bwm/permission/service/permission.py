@@ -13,6 +13,11 @@ _Permission = permission.Permission
 class PermissionService(CacheService):
     model = _Permission
 
+    def is_exist(self, role_id: int, menu_id: int):
+        return self.db.session.query(
+            self.available.filter_by(role_id=role_id, menu_id=menu_id).exists()
+        ).scalar()
+
     @load_schema(AddPermission())
     def add_permission(self, data: Data):
         p = self.model(

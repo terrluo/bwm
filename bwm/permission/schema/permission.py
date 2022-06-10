@@ -27,12 +27,10 @@ class AddPermission(Schema):
 
     @validates_schema(skip_on_field_errors=True)
     def validate_schema(self, data, **kwargs):
+        from bwm.permission.service.permission import PermissionService
+
         role_id = data["role_id"]
         menu_id = data["menu_id"]
 
-        if _db.session.query(
-            permission.Permission.query.filter_by(
-                role_id=role_id, menu_id=menu_id, is_delete=False
-            ).exists()
-        ).scalar():
+        if PermissionService().is_exist(role_id, menu_id):
             raise PermissionError.EXISTED
