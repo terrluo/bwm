@@ -3,6 +3,7 @@ import typing as t
 import sqlalchemy as sa
 from flask_bcrypt import Bcrypt
 
+from bwm.account.error.user import UserError
 from bwm.constants import HTTP_METHOD_LIST, HttpMethod
 from bwm.core.model import BaseModel
 from bwm.type import Data
@@ -34,6 +35,10 @@ class User(BaseModel):
     is_admin = sa.Column(
         sa.Boolean, nullable=False, default=False, comment="是否是管理员, 管理员有所有权限"
     )
+
+    def check_permission(self, endpoint: str, method: str):
+        if not self.has_permission(endpoint, method):
+            raise UserError.PERMISSION_DENIED
 
     def has_permission(self, endpoint: str, method: str) -> bool:
         if self.is_admin:

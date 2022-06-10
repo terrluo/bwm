@@ -35,8 +35,9 @@ class JWTComponent(Component):
         @jwt.token_verification_loader
         def token_verification(jwt_header: dict, jwt_data: dict):
             user = _get_login_user(jwt_data)
-            if user is not None:
-                return user.has_permission(request.endpoint, request.method)
+            if user is not None and self._app.config.get("GLOBAL_PERMISSION_CHECK"):
+                user.check_permission(request.endpoint, request.method)
+                return True
             return False
 
         def _get_login_user(jwt_data: dict):

@@ -10,7 +10,9 @@ from flask_jwt_extended import (
     get_jwt,
 )
 
-from bwm.account.error import LoginError, RegisterError, UserError
+from bwm.account.error.login import LoginError
+from bwm.account.error.register import RegisterError
+from bwm.account.error.user import UserError
 from bwm.account.schema import LoginSchema, RegisterSchema
 from bwm.core.schema import PageSchema, load_schema
 from bwm.core.service import Service
