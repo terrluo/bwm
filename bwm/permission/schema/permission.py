@@ -30,7 +30,6 @@ class AddPermission(Schema):
         role_id = data["role_id"]
         menu_id = data["menu_id"]
 
-        # TODO 软删除后再次添加相同权限报错
         if _db.session.query(
             permission.Permission.query.filter_by(
                 role_id=role_id, menu_id=menu_id, is_delete=False
