@@ -69,5 +69,11 @@ class User(BaseModel):
     def check_password(self, password: str, bcrypt: t.Optional[Bcrypt] = None):
         return self._get_bcrypt(bcrypt).check_password_hash(self.password, password)
 
+    def change_password(self, password: str, bcrypt: t.Optional[Bcrypt] = None):
+        encrypt_password = self.generate_password(password, bcrypt=bcrypt)
+        union_id = generate_union_id()
+        self.password = encrypt_password
+        self.union_id = union_id
+
     def _get_bcrypt(self, bcrypt: t.Optional[Bcrypt] = None):
         return bcrypt if bcrypt else get_bcrypt()
