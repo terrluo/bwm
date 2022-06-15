@@ -14,6 +14,7 @@ register.register_components(
         register.LogComponent,
         register.ConfigComponent,
         register.DBComponent,
+        register.MarshmallowComponent,
         register.JWTComponent,
         register.BlueprintComponent,
         register.ErrorHandlerComponent,

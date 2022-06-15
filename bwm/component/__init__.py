@@ -15,6 +15,7 @@ from .db import DBComponent
 from .errorhandle import ErrorHandlerComponent
 from .jwt import JWTComponent
 from .log import LogComponent
+from .marshmallow import MarshmallowComponent
 
 cache = Cache()
 celery = Celery(__name__)
@@ -48,5 +49,6 @@ __all__ = [
     "ErrorHandlerComponent",
     "JWTComponent",
     "LogComponent",
+    "MarshmallowComponent",
     "register_components",
 ]
