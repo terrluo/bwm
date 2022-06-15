@@ -1,7 +1,7 @@
 import typing as t
 
 import redis
-from flask import Flask, request, session
+from flask import Flask, session
 from flask_babel import lazy_gettext as _
 from flask_jwt_extended import JWTManager as _JWTManager
 
@@ -34,11 +34,7 @@ class JWTComponent(Component):
 
         @jwt.token_verification_loader
         def token_verification(jwt_header: dict, jwt_data: dict):
-            user = _get_login_user(jwt_data)
-            if user is not None and self._app.config.get("GLOBAL_PERMISSION_CHECK"):
-                user.check_permission(request.endpoint, request.method)
-                return True
-            return False
+            return _get_login_user(jwt_data) is not None
 
         def _get_login_user(jwt_data: dict):
             union_id = jwt_data["sub"]

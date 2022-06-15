@@ -22,7 +22,7 @@ class ChangePasswordSchema(Schema):
         old_password = data["old_password"]
         new_password = data["new_password"]
         new_password_check = data["new_password_check"]
-        user = self._get_user(data, **kwargs)
+        data["user"] = user = self._get_user(data)
 
         if not user.check_password(old_password):
             raise UserError.OLD_PASSWORD_ERROR
@@ -30,11 +30,11 @@ class ChangePasswordSchema(Schema):
         if new_password != new_password_check:
             raise UserError.NEW_PASSWORD_ERROR
 
-    def _get_user(self, data: dict) -> _User:
+    def _get_user(self, data: dict) -> "_User":
         raise NotImplementedError()
 
 
 class ChangeOwnPasswordSchema(ChangePasswordSchema):
-    def _get_user(self, data: dict) -> _User:
+    def _get_user(self, data: dict) -> "_User":
         db = get_db()
         return db.session.merge(current_user)

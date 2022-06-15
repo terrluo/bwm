@@ -5,6 +5,7 @@ from flask_restful import fields, marshal_with
 
 from bwm.account.service.user import UserService
 from bwm.core.restful import Resource, common_marshal, create_route
+from bwm.util.permission import skip_check_permission
 
 login_bp, login_api = create_route("login", __name__, url_prefix="/api")
 
@@ -31,6 +32,7 @@ class Logout(Resource):
 
 class Refresh(Resource):
     @marshal_with({"access_token": fields.String()})
+    @skip_check_permission
     @jwt_required(refresh=True)
     def post(self):
         access_token = UserService().refresh()

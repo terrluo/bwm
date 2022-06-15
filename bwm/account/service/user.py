@@ -15,6 +15,7 @@ from bwm.account.error.register import RegisterError
 from bwm.account.error.user import UserError
 from bwm.account.schema.login import LoginSchema
 from bwm.account.schema.register import RegisterSchema
+from bwm.account.schema.user import ChangeOwnPasswordSchema
 from bwm.core.schema import PageSchema, load_schema
 from bwm.core.service import Service
 from bwm.model import account
@@ -26,6 +27,14 @@ _User = account.User
 
 class UserService(Service):
     model = _User
+
+    @load_schema(ChangeOwnPasswordSchema())
+    def change_own_password(self, data: Data):
+        user: _User = data["user"]
+        new_password = data["new_password"]
+        user.change_password(new_password)
+        self.db.session.commit()
+        self.logout()
 
     @load_schema(PageSchema())
     def get_all_user(self, data: Data):

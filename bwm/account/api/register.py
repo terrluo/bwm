@@ -16,4 +16,4 @@ class Register(Resource):
         return self.success(_("注册成功"))
 
 
-register_api.add_resource(Register, "/")
+register_api.add_resource(Register, "")

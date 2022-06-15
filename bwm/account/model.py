@@ -13,12 +13,7 @@ from bwm.util.permission import generate_route_key
 
 
 class User(BaseModel):
-    """
-    用户
-
-    备注：
-        更新密码后需要重新生成 union_id
-    """
+    """用户"""
 
     __tablename__ = "account_user"
 
@@ -70,10 +65,7 @@ class User(BaseModel):
         return self._get_bcrypt(bcrypt).check_password_hash(self.password, password)
 
     def change_password(self, password: str, bcrypt: t.Optional[Bcrypt] = None):
-        encrypt_password = self.generate_password(password, bcrypt=bcrypt)
-        union_id = generate_union_id()
-        self.password = encrypt_password
-        self.union_id = union_id
+        self.password = self.generate_password(password, bcrypt=bcrypt)
 
     def _get_bcrypt(self, bcrypt: t.Optional[Bcrypt] = None):
         return bcrypt if bcrypt else get_bcrypt()

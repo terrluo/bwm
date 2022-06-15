@@ -3,7 +3,7 @@ from flask_jwt_extended import current_user, jwt_required
 from flask_restful import fields, marshal_with
 
 from bwm.account.service.user import UserService
-from bwm.core.restful import Resource, create_route, marshal_list
+from bwm.core.restful import Resource, common_marshal, create_route, marshal_list
 
 user_bp, user_api = create_route("user", __name__, url_prefix="/api/user")
 
@@ -32,5 +32,15 @@ class UserList(Resource):
         return UserService().get_all_user(request.args)
 
 
+class OwnPassword(Resource):
+    method_decorators = [jwt_required()]
+
+    @common_marshal
+    def put(self):
+        UserService().change_own_password(request.json)
+        return self.success()
+
+
 user_api.add_resource(User, "")
-user_api.add_resource(UserList, "")
+user_api.add_resource(UserList, "/list")
+user_api.add_resource(OwnPassword, "/password")

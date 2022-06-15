@@ -1,12 +1,21 @@
 import os
 import typing as t
 
-from flask import Blueprint, current_app
+from flask import Blueprint, current_app, request
 from flask.scaffold import _sentinel
 from flask_babel import lazy_gettext as _
 from flask_restful import Api as _Api
 from flask_restful import Resource as _Resource
 from flask_restful import fields, marshal_with
+from flask_restful.utils import OrderedDict, unpack
+from werkzeug.wrappers import Response as ResponseBase
+
+from bwm.util.permission import global_check_permission
+
+try:
+    from collections.abc import Mapping
+except ImportError:
+    from collections import Mapping
 
 
 class Api(_Api):
@@ -18,6 +27,41 @@ class Api(_Api):
 
 
 class Resource(_Resource):
+    def dispatch_request(self, *args, **kwargs):
+
+        # Taken from flask
+        # noinspection PyUnresolvedReferences
+        meth = getattr(self, request.method.lower(), None)
+        if meth is None and request.method == "HEAD":
+            meth = getattr(self, "get", None)
+        assert meth is not None, "Unimplemented method %r" % request.method
+
+        if isinstance(self.method_decorators, Mapping):
+            decorators = self.method_decorators.get(request.method.lower(), [])
+        else:
+            decorators = self.method_decorators
+
+        decorators = [global_check_permission] + list(decorators)
+        for decorator in decorators:
+            meth = decorator(meth)
+
+        resp = meth(*args, **kwargs)
+
+        if isinstance(resp, ResponseBase):  # There may be a better way to test
+            return resp
+
+        representations = self.representations or OrderedDict()
+
+        # noinspection PyUnresolvedReferences
+        mediatype = request.accept_mimetypes.best_match(representations, default=None)
+        if mediatype in representations:
+            data, code, headers = unpack(resp)
+            resp = representations[mediatype](data, code, headers)
+            resp.headers["Content-Type"] = mediatype
+            return resp
+
+        return resp
+
     def success(self, message: str = _("成功")):
         return {"message": message}
 
