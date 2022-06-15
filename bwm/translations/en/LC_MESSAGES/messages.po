@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-06-10 11:32+0800\n"
+"POT-Creation-Date: 2022-06-15 10:42+0800\n"
 "PO-Revision-Date: 2022-05-20 16:44+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -27,7 +27,7 @@ msgstr "revoke %(token_type)s token successfully"
 msgid "注册成功"
 msgstr "registered successfully"
 
-#: bwm/account/error/login.py:9 bwm/account/service/user.py:72
+#: bwm/account/error/login.py:9 bwm/account/service/user.py:73
 msgid "用户名或密码错误"
 msgstr "username or password error"
 
@@ -35,7 +35,7 @@ msgstr "username or password error"
 msgid "已注册"
 msgstr "registered"
 
-#: bwm/account/error/user.py:9 bwm/account/service/user.py:49
+#: bwm/account/error/user.py:9 bwm/account/service/user.py:50
 msgid "用户不存在"
 msgstr "user doesn't exist"
 
@@ -43,13 +43,33 @@ msgstr "user doesn't exist"
 msgid "没有权限"
 msgstr "permission denied"
 
-#: bwm/account/service/user.py:58
+#: bwm/account/error/user.py:11
+msgid "旧密码错误"
+msgstr "old password error"
+
+#: bwm/account/error/user.py:12
+msgid "新密码不一致"
+msgstr "the new password does not match"
+
+#: bwm/account/service/user.py:59
 msgid "用户已注册"
 msgstr "user is registered"
 
 #: bwm/component/jwt.py:75
 msgid "redis_blocklist 未初始化"
 msgstr "redis_blocklist is not initialized"
+
+#: bwm/component/marshmallow.py:10
+msgid "参数缺失"
+msgstr "Missing data for required field"
+
+#: bwm/component/marshmallow.py:11
+msgid "不能为空"
+msgstr "Field may not be null"
+
+#: bwm/component/marshmallow.py:12
+msgid "数据错误"
+msgstr "data error"
 
 #: bwm/core/error.py:52
 msgid "请求数据错误"
@@ -82,4 +102,7 @@ msgstr "role doesn't exist"
 #: bwm/permission/error/role.py:9
 msgid "角色已存在"
 msgstr "role already exists"
+
+#~ msgid "新密码和二次确认密码不一致"
+#~ msgstr ""
 
