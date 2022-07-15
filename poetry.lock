@@ -163,7 +163,7 @@ python-versions = "*"
 
 [[package]]
 name = "cachelib"
-version = "0.7.0"
+version = "0.9.0"
 description = "A collection of cache libraries in the same API interface."
 category = "main"
 optional = false
@@ -410,15 +410,15 @@ Flask = "*"
 
 [[package]]
 name = "flask-caching"
-version = "1.11.1"
+version = "2.0.0"
 description = "Adds caching support to Flask applications."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 
 [package.dependencies]
-cachelib = "*"
-Flask = "*"
+cachelib = ">=0.9.0"
+Flask = "<=2.1.2"
 
 [[package]]
 name = "flask-cors"
@@ -1195,7 +1195,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "9dfacc091fcae0b183b728d1bb3d72cdc3fe5daf08e3ff95bd5157195a09c22e"
+content-hash = "ad6372a5f6778f86e349cc57118dbe58a19d5475312a765ff88452851e643683"
 
 [metadata.files]
 alembic = [
@@ -1284,8 +1284,8 @@ blinker = [
     {file = "blinker-1.4.tar.gz", hash = "sha256:471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"},
 ]
 cachelib = [
-    {file = "cachelib-0.7.0-py3-none-any.whl", hash = "sha256:80fa73dda398672329dab6c8e9e9bad03fd36dc4da40d911d7de308c91e8481e"},
-    {file = "cachelib-0.7.0.tar.gz", hash = "sha256:df254f3b900dc8684d8ebdd146c731ddb45edc6233a6cf7e3e834c949f360726"},
+    {file = "cachelib-0.9.0-py3-none-any.whl", hash = "sha256:811ceeb1209d2fe51cd2b62810bd1eccf70feba5c52641532498be5c675493b3"},
+    {file = "cachelib-0.9.0.tar.gz", hash = "sha256:38222cc7c1b79a23606de5c2607f4925779e37cdcea1c2ad21b8bae94b5425a5"},
 ]
 celery = [
     {file = "celery-5.2.7-py3-none-any.whl", hash = "sha256:138420c020cd58d6707e6257b6beda91fd39af7afde5d36c6334d175302c0e14"},
@@ -1404,8 +1404,8 @@ flask-bcrypt = [
     {file = "Flask_Bcrypt-1.0.1-py3-none-any.whl", hash = "sha256:062fd991dc9118d05ac0583675507b9fe4670e44416c97e0e6819d03d01f808a"},
 ]
 flask-caching = [
-    {file = "Flask-Caching-1.11.1.tar.gz", hash = "sha256:28af189e97defb9e39b43ebe197b54a58aaee81bdeb759f46d969c26d7aa7810"},
-    {file = "Flask_Caching-1.11.1-py3-none-any.whl", hash = "sha256:36592812eec6cba86eca48bcda74eff24bfd6c8eaf6056ca0184474bb78c0dc4"},
+    {file = "Flask-Caching-2.0.0.tar.gz", hash = "sha256:3300efccda359d69ce0e6824b90cb571ff895a3907c31266c0342cca4bc40340"},
+    {file = "Flask_Caching-2.0.0-py3-none-any.whl", hash = "sha256:e5ff99af4a0208bd93a24fe48b24e9b47a77236c38c5d6a6aa3d688334040027"},
 ]
 flask-cors = [
     {file = "Flask-Cors-3.0.10.tar.gz", hash = "sha256:b60839393f3b84a0f3746f6cdca56c1ad7426aa738b70d6c61375857823181de"},
