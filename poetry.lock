@@ -651,18 +651,18 @@ asymmetric-crypto = ["cryptography (>=3.3.1)"]
 
 [[package]]
 name = "flask-migrate"
-version = "3.1.0"
+version = "4.0.3"
 description = "SQLAlchemy database migrations for Flask applications using Alembic."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "Flask-Migrate-3.1.0.tar.gz", hash = "sha256:57d6060839e3a7f150eaab6fe4e726d9e3e7cffe2150fb223d73f92421c6d1d9"},
-    {file = "Flask_Migrate-3.1.0-py3-none-any.whl", hash = "sha256:a6498706241aba6be7a251078de9cf166d74307bca41a4ca3e403c9d39e2f897"},
+    {file = "Flask-Migrate-4.0.3.tar.gz", hash = "sha256:a0062c8d3f32de02847086b46cfc389412f78c71c89a619ebd7097e89d72ea4b"},
+    {file = "Flask_Migrate-4.0.3-py3-none-any.whl", hash = "sha256:8662a9dd391ce36deeaf3265987319c20fdb4c8a45306a32ba4f8224459abed4"},
 ]
 
 [package.dependencies]
-alembic = ">=0.7"
+alembic = ">=1.9.0"
 Flask = ">=0.9"
 Flask-SQLAlchemy = ">=1.0"
 
@@ -1812,4 +1812,4 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "6e53bf9e13fefb303f3b9340b20ca488d7777488cd4fc8316bd26f41a68eac5c"
+content-hash = "1cc62be9ef2531254828d8839b413f7c9df18d9a71d566b4cc2bbcd380e551e2"
